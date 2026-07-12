@@ -1,0 +1,74 @@
+.placard {
+  display: block;
+  text-decoration: none;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: var(--space-lg);
+  transition: border-color 0.2s;
+}
+
+.placard:hover {
+  border-color: var(--accent);
+}
+
+.visual {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 2px;
+  margin-bottom: var(--space-md);
+  background: var(--line);
+}
+
+.visual img {
+  object-fit: cover;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.metadata {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  margin-top: var(--space-sm);
+}
+
+.result {
+  font-size: var(--text-sm);
+  margin-top: var(--space-sm);
+  color: var(--ink);
+}
+
+/* Type-in caption: one-shot clip reveal ≤400ms, triggered on first view.
+   Text is always in the HTML — the animation only uncovers it. */
+@media (prefers-reduced-motion: no-preference) {
+  .placard[data-animate="pending"] .result {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  .placard[data-animate="play"] .result {
+    animation: typeIn 400ms steps(24, end) forwards;
+  }
+}
+
+@keyframes typeIn {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.featured .title {
+  font-size: var(--text-xl);
+}
+
+.featured {
+  padding: var(--space-xl);
+}

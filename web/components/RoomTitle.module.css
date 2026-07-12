@@ -1,0 +1,11 @@
+.roomTitle h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+.roomTitle p {
+  color: var(--ink-muted);
+  margin-top: var(--space-sm);
+  font-size: var(--text-md);
+}
