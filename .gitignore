@@ -1,0 +1,43 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Dependencies (all packages)
+node_modules/
+
+# Build output
+.next/
+out/
+dist/
+build/
+
+# Environment & secrets — never tracked (AD-7)
+.env
+.env.*
+!.env.example
+
+# Sanity
+.sanity/
+
+# Logs & caches
+*.log
+npm-debug.log*
+.turbo/
+.cache/
+*.tsbuildinfo
+next-env.d.ts
+
+# Editor / tooling
+.vscode/
+.idea/
+*.swp
+.claude/settings.local.json
+
+# Python (agent/ sidecar, future)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Vercel
+.vercel/
