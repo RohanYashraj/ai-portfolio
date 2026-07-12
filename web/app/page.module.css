@@ -31,13 +31,20 @@
   margin-top: var(--space-md);
 }
 
-/* hero identity block to stat strip: related but distinct proof layers */
+/* hero identity block to stat strip: related but distinct proof layers.
+   3-across on mobile per spec — never a vertical stack. */
 .stats {
-  display: flex;
-  gap: var(--space-lg) var(--space-2xl);
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: var(--space-sm);
   margin-top: var(--space-xl);
-  flex-wrap: wrap;
   justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .stats {
+    gap: var(--space-2xl);
+  }
 }
 
 /* stats to room cue: let the proof breathe before inviting movement */

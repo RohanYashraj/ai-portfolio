@@ -21,11 +21,6 @@
   --text-2xl: 32px;
   --text-3xl: 40px;
 
-  /* Typefaces — families injected by next/font in app/layout.tsx */
-  --font-display: var(--next-font-display), Georgia, serif;
-  --font-default: var(--next-font-default), system-ui, sans-serif;
-  --font-mono: var(--next-font-mono), ui-monospace, monospace;
-
   /* Color roles — daylight gallery */
   --canvas: #faf8f4;
   --ink: #191714;
@@ -73,6 +68,13 @@ html {
 }
 
 body {
+  /* Typeface aliases live on body: the --next-font-* variables are injected
+     here by next/font (app/layout.tsx), and custom properties resolve where
+     they are declared — on :root these would compute to invalid. */
+  --font-display: var(--next-font-display), Georgia, serif;
+  --font-default: var(--next-font-default), system-ui, sans-serif;
+  --font-mono: var(--next-font-mono), ui-monospace, monospace;
+
   background: var(--canvas);
   color: var(--ink);
   font-family: var(--font-default);
