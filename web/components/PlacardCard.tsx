@@ -20,15 +20,14 @@ type Props = {
  */
 export function PlacardCard({ work, featured = false }: Props) {
   const ref = useRef<HTMLAnchorElement>(null);
-  const [animate, setAnimate] = useState<"pending" | "play" | "done">("pending");
+  /* Reduced-motion needs no branch here: the "pending" clip-path only
+     applies under prefers-reduced-motion: no-preference (see module CSS). */
+  const [animate, setAnimate] = useState<"pending" | "play">("pending");
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setAnimate("done");
-      return;
-    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const observer = new IntersectionObserver(
       (entries) => {
         if (!entries.some((entry) => entry.isIntersecting)) return;
