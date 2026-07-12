@@ -39,28 +39,30 @@
 ## Dependency order
 0a → 0b → (0c → 0d → 0e) → 1a–1f → 2a–2e → 3
 
-## Acceptance Criteria
+## Acceptance Criteria (verified Step 4, 2026-07-13)
 
-- [ ] Hero (name, niche, anchor) is static HTML in the payload — content visible <1s, zero blocking scripts
-- [ ] Positioning statable after one viewport: who / what ("the AI Actuary") / how much
-- [ ] Stat strip: 3 stats (years / papers / talks), CMS-derived counts, count-up on first view
-- [ ] Stats static under prefers-reduced-motion; final values render if JS pending
-- [ ] Stat strip hidden entirely on CMS fetch failure (never zeros/placeholders)
-- [ ] Stat clicks: papers → Archive filtered to Papers; talks → Speaking & Writing
-- [ ] Room cue "Enter: Selected Works" smooth-scrolls to `#selected-works`
-- [ ] Header: name → `/`, all five room links work, collapses to menu <768px
-- [ ] Selected Works: 3–5 CMS-flagged works, newest-first, manual pin override, featured-first larger placard
-- [ ] Asymmetric wall layout on desktop (not a uniform grid); single column mobile
-- [ ] Placard: title, year-first `date · type` metadata (mono), one-line result; onClick → `/archive/[slug]`
-- [ ] Placard text present at SSR; optional visual lazy-loads with aspect-ratio placeholder
-- [ ] Type-in caption on scroll: one-shot, ≤400ms, disabled on reduced-motion
-- [ ] Sparse state: <3 selected works renders what exists, never placeholders
-- [ ] Archive cue "See everything → The Archive" → `/archive`
-- [ ] Docent launcher appears only after successful `/health` probe; page fully functional with it hidden
-- [ ] Suggestion chip after 3s, dismissible, never re-interrupts
-- [ ] SEO: title, meta description, JSON-LD Person schema with "AI Actuary"
-- [ ] Both themes (`data-theme`) match signed-off palette; tokens from design system
-- [ ] All content resolves from Sanity (AD-1); no visitor-readable facts hardcoded
+- [x] Hero (name, niche, anchor) is static HTML in the payload — content visible <1s, zero blocking scripts (curl: hero text + placards in raw HTML)
+- [x] Positioning statable after one viewport: who / what ("the AI Actuary") / how much
+- [x] Stat strip: 3 stats (years / papers / talks), CMS-derived counts, count-up on first view
+- [x] Stats static under prefers-reduced-motion (matchMedia gate skips animation); final values render if JS pending (SSR'd values, `12<!-- -->+` artifact displays fine)
+- [x] Stat strip hidden entirely on CMS fetch failure — getStats() → null path; observed pre-seed
+- [x] Stat clicks: papers → `/archive?type=paper`; talks → `/speaking` (hrefs verified; targets are future build units)
+- [x] Room cue smooth-scrolls to `#selected-works` (observed mid-animation)
+- [x] Header: name → `/`, five room links, collapses to ☰ <768px (menu open/close verified)
+- [x] Selected Works: 4 CMS-flagged works, pinned-first then newest-first (GROQ `coalesce(pinOrder, 9999) asc, date desc`), featured-first larger placard
+- [x] Asymmetric wall on desktop (72% width, alternating alignment); single column mobile
+- [x] Placard: title, year-first `date · type` mono metadata, one-line result; → `/archive/[slug]`
+- [x] Placard text at SSR; optional visual lazy-loads with aspect-ratio box (code path; no images in seed — schema requires alt)
+- [x] Type-in caption: one-shot IntersectionObserver, 400ms clip reveal, CSS-gated off under reduced-motion
+- [x] Sparse state: wall maps only fetched works, no placeholder branch exists
+- [x] Archive cue → `/archive`
+- [x] Docent launcher renders only after successful `/api/docent/health` probe (AD-2); currently hidden (no agent) and page fully functional
+- [x] Chip after 3s, dismissible, sessionStorage prevents re-interrupt (code-verified; unreachable until agent deploys)
+- [x] SEO: title, meta description, JSON-LD Person all contain "the AI Actuary"; single H1
+- [x] Both themes match signed-off palette; all values from tokens.css
+- [x] All content resolves from Sanity (AD-1); UI labels only in code
+
+**Step 4 additional checks:** tablet 768 (full nav, no overflow), keyboard tab order + visible focus rings, 44×44 touch targets on mobile (fixed — header buttons were 32px), WCAG AA contrast measured: light 16.86/4.90/5.87, dark 6.28 muted / 6.96 accent. Interactive states not applicable this page: disabled/loading/error/success (no forms until 1.4 The Study).
 
 ---
 

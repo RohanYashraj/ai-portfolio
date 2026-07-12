@@ -66,6 +66,13 @@
     display: block;
   }
 
+  /* 44px minimum touch targets on touch-first viewports */
+  .themeToggle,
+  .menuButton {
+    width: 44px;
+    height: 44px;
+  }
+
   .navOpen {
     display: flex;
     position: absolute;
