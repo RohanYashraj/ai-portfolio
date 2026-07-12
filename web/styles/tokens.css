@@ -1,0 +1,86 @@
+/* Design tokens — source of truth: design-artifacts/D-Design-System/00-design-system.md
+   Palette signed off 2026-07-12 (home-prototype.html) */
+
+:root {
+  /* Spacing scale */
+  --space-zero: 0;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+
+  /* Type scale (mobile) */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-md: 16px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+  --text-2xl: 32px;
+  --text-3xl: 40px;
+
+  /* Typefaces — families injected by next/font in app/layout.tsx */
+  --font-display: var(--next-font-display), Georgia, serif;
+  --font-default: var(--next-font-default), system-ui, sans-serif;
+  --font-mono: var(--next-font-mono), ui-monospace, monospace;
+
+  /* Color roles — daylight gallery */
+  --canvas: #faf8f4;
+  --ink: #191714;
+  --ink-muted: rgba(25, 23, 20, 0.62);
+  --accent: #9a4a1f;
+  --line: rgba(25, 23, 20, 0.12);
+  --card: #ffffff;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --text-md: 17px;
+    --text-lg: 22px;
+    --text-xl: 30px;
+    --text-2xl: 44px;
+    --text-3xl: 64px;
+  }
+}
+
+[data-theme="dark"] {
+  /* gallery lighting */
+  --canvas: #16130f;
+  --ink: #f2ede6;
+  --ink-muted: rgba(242, 237, 230, 0.6);
+  --accent: #d98d55;
+  --line: rgba(242, 237, 230, 0.16);
+  --card: #1d1915;
+}
+
+/* Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-default);
+  font-size: var(--text-md);
+  line-height: 1.6;
+  transition: background 0.4s, color 0.4s;
+}
+
+a {
+  color: inherit;
+}

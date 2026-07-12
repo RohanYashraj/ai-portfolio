@@ -6,6 +6,13 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8321", "--directory", "design-artifacts/C-UX-Scenarios/01-elenas-three-minute-vetting/1.1-home/Sketches"],
       "port": 8321
+    },
+    {
+      "name": "web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "web"],
+      "port": 3000,
+      "autoPort": true
     }
   ]
 }
