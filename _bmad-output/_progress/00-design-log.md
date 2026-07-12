@@ -17,8 +17,8 @@
 
 | Scenario | Page | Name | Status | Date |
 |----------|------|------|--------|------|
-| 01-elenas-three-minute-vetting | 1.1 | Home | specified | 2026-07-12 |
-| 01-elenas-three-minute-vetting | 1.2 | Selected Works | specified | 2026-07-12 |
+| 01-elenas-three-minute-vetting | 1.1 | Home | building | 2026-07-12 |
+| 01-elenas-three-minute-vetting | 1.2 | Selected Works | building | 2026-07-12 |
 | 01-elenas-three-minute-vetting | 1.3 | Speaking & Writing | specified | 2026-07-12 |
 | 01-elenas-three-minute-vetting | 1.4 | The Study | specified | 2026-07-12 |
 | 02-rahuls-55-second-proof-hunt | 2.1 | The Archive | specified | 2026-07-12 |
