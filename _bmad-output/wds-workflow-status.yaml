@@ -1,0 +1,8 @@
+config:
+  brief_level: simplified
+  project_name: ai-portfolio
+  methodology_version: wds-v6
+phases:
+  1-wds-strategy:
+    project-brief: complete  # design-artifacts/A-Product-Brief/project-brief.md (simplified, 2026-07-12)
+    trigger-map: complete  # design-artifacts/B-Trigger-Map/trigger-map.md (dream mode, 2026-07-12)

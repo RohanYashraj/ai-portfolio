@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Rohan Yashraj Gupta — the AI Actuary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ── Tokens (D-Design-System/00-design-system.md) ─────────────── */
+  :root {
+    --space-xs: 4px;  --space-sm: 8px;   --space-md: 16px;
+    --space-lg: 24px; --space-xl: 40px;  --space-2xl: 64px; --space-3xl: 96px;
+
+    --text-xs: 12px; --text-sm: 14px; --text-md: 16px; --text-lg: 20px;
+    --text-xl: 24px; --text-2xl: 32px; --text-3xl: 40px;
+
+    --font-display: "Source Serif 4", Georgia, serif;
+    --font-default: "Inter", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+    /* daylight gallery */
+    --canvas: #faf8f4;
+    --ink: #191714;
+    --ink-muted: rgba(25,23,20,.62);
+    --accent: #9a4a1f;          /* restrained ochre-rust — placeholder */
+    --line: rgba(25,23,20,.12);
+    --card: #ffffff;
+  }
+  @media (min-width: 768px) {
+    :root { --text-md: 17px; --text-lg: 22px; --text-xl: 30px; --text-2xl: 44px; --text-3xl: 64px; }
+  }
+  [data-theme="dark"] {
+    --canvas: #16130f;
+    --ink: #f2ede6;
+    --ink-muted: rgba(242,237,230,.60);
+    --accent: #d98d55;
+    --line: rgba(242,237,230,.16);
+    --card: #1d1915;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--canvas); color: var(--ink);
+    font-family: var(--font-default); font-size: var(--text-md);
+    line-height: 1.6; transition: background .4s, color .4s;
+  }
+  a { color: inherit; }
+
+  /* ── SiteHeader ───────────────────────────────────────────────── */
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; background: color-mix(in srgb, var(--canvas) 94%, transparent);
+    backdrop-filter: blur(8px); z-index: 10;
+  }
+  .site-name { font-family: var(--font-display); font-weight: 600; font-size: var(--text-md); text-decoration: none; }
+  nav { display: flex; gap: var(--space-lg); align-items: center; }
+  nav a { font-size: var(--text-sm); text-decoration: none; color: var(--ink-muted); font-weight: 500; }
+  nav a:hover { color: var(--ink); }
+  .theme-toggle { background: none; border: 1px solid var(--line); border-radius: 999px;
+    width: 32px; height: 32px; cursor: pointer; color: var(--ink); font-size: 14px; }
+  @media (max-width: 767px) { nav { gap: var(--space-md); } nav a { font-size: var(--text-xs); } }
+
+  /* ── Entrance Hero ────────────────────────────────────────────── */
+  .hero {
+    min-height: 88vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+    padding: var(--space-3xl) var(--space-lg);
+  }
+  .hero h1 { font-family: var(--font-display); font-size: var(--text-3xl); font-weight: 700; letter-spacing: -0.01em; }
+  .hero .niche { font-family: var(--font-display); font-style: italic; font-size: var(--text-xl);
+    font-weight: 500; color: var(--accent); margin-top: var(--space-md); }
+  .hero .anchor { font-size: var(--text-md); color: var(--ink-muted); margin-top: var(--space-md); }
+
+  .stats { display: flex; gap: var(--space-2xl); margin-top: var(--space-xl); flex-wrap: wrap; justify-content: center; }
+  .stat { display: flex; flex-direction: column; gap: var(--space-sm); }
+  .stat b { font-family: var(--font-mono); font-size: var(--text-2xl); font-weight: 600; }
+  .stat span { font-size: var(--text-xs); color: var(--ink-muted); letter-spacing: .08em; text-transform: uppercase; }
+
+  .cue { margin-top: var(--space-2xl); font-size: var(--text-sm); font-weight: 500;
+    color: var(--ink-muted); text-decoration: none; }
+  .cue:hover { color: var(--accent); }
+
+  /* ── Selected Works ───────────────────────────────────────────── */
+  .works { padding: var(--space-3xl) var(--space-lg); max-width: 1080px; margin: 0 auto; }
+  .room-title h2 { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; }
+  .room-title p { color: var(--ink-muted); margin-top: var(--space-sm); }
+
+  .wall { margin-top: var(--space-2xl); display: grid; gap: var(--space-2xl); }
+  @media (min-width: 768px) {
+    .wall { grid-template-columns: repeat(12, 1fr); }
+    .placard.featured { grid-column: 1 / 9; }
+    .placard:nth-child(2) { grid-column: 5 / 13; }
+    .placard:nth-child(3) { grid-column: 1 / 8; }
+  }
+  .placard { background: var(--card); border: 1px solid var(--line); padding: var(--space-xl);
+    text-decoration: none; display: block; transition: transform .25s, box-shadow .25s; }
+  .placard:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,.07); }
+  .placard .meta { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--ink-muted); }
+  .placard h3 { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; margin-top: var(--space-sm); }
+  .placard .result { font-size: var(--text-sm); color: var(--ink-muted); margin-top: var(--space-sm); }
+  .placard.featured h3 { font-size: var(--text-xl); }
+
+  .archive-cue { display: inline-block; margin-top: var(--space-3xl); font-weight: 500;
+    font-size: var(--text-md); color: var(--accent); text-decoration: none; }
+
+  /* ── Footer ───────────────────────────────────────────────────── */
+  footer { border-top: 1px solid var(--line); padding: var(--space-xl) var(--space-lg);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-md);
+    font-size: var(--text-sm); color: var(--ink-muted); }
+  footer a { text-decoration: none; }
+
+  /* ── Docent Launcher ──────────────────────────────────────────── */
+  .docent { position: fixed; right: var(--space-lg); bottom: var(--space-lg);
+    display: flex; align-items: center; gap: var(--space-sm); z-index: 20; }
+  .docent-chip { background: var(--card); border: 1px solid var(--line); border-radius: 999px;
+    padding: var(--space-sm) var(--space-md); font-size: var(--text-sm); cursor: pointer;
+    color: var(--ink); box-shadow: 0 4px 16px rgba(0,0,0,.08); opacity: 0; transform: translateY(6px);
+    animation: chipIn .5s ease 3s forwards; }
+  .docent-btn { width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer;
+    background: var(--ink); color: var(--canvas); font-size: 20px; font-family: var(--font-display);
+    box-shadow: 0 4px 16px rgba(0,0,0,.15); }
+  @keyframes chipIn { to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .docent-chip { animation: none; opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+    .placard, body { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="site-name" href="#">Rohan Gupta</a>
+  <nav>
+    <a href="#selected-works">Selected Works</a>
+    <a href="#">Archive</a>
+    <a href="#">Speaking</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <button class="theme-toggle" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? '' : 'dark'" aria-label="Toggle gallery lighting">◐</button>
+  </nav>
+</header>
+
+<!-- Entrance Hero — the <1s credibility hypothesis -->
+<section class="hero">
+  <h1>Dr. Rohan Yashraj Gupta</h1>
+  <p class="niche">— the AI Actuary —</p>
+  <p class="anchor">actuary (FIA, FIAI) × data scientist</p>
+
+  <div class="stats" id="stats">
+    <div class="stat"><b data-count="12">12</b><span>years in actuarial &amp; AI</span></div>
+    <div class="stat"><b data-count="14">14</b><span>research papers</span></div>
+    <div class="stat"><b data-count="28">28</b><span>conference talks</span></div>
+  </div>
+
+  <a class="cue" href="#selected-works">↓ &nbsp;Enter: Selected Works</a>
+</section>
+
+<!-- Selected Works — the gallery wall -->
+<section class="works" id="selected-works">
+  <div class="room-title">
+    <h2>Selected Works</h2>
+    <p>Recent highlights — the work speaks first.</p>
+  </div>
+
+  <div class="wall">
+    <a class="placard featured" href="#">
+      <p class="meta">2026 · PROJECT</p>
+      <h3>Claims Triage with LLMs</h3>
+      <p class="result">Cut manual claims review 40% at a top-5 insurer — agentic pipeline in production.</p>
+    </a>
+    <a class="placard" href="#">
+      <p class="meta">2026 · TALK</p>
+      <h3>Agentic AI for Actuaries</h3>
+      <p class="result">IFoA Conference, London — 300 practitioners on why the profession's next tool is an agent.</p>
+    </a>
+    <a class="placard" href="#">
+      <p class="meta">2025 · PAPER</p>
+      <h3>Fraud Detection with Graph ML</h3>
+      <p class="result">ASTIN Bulletin — network features caught 2.3× more organized fraud rings.</p>
+    </a>
+  </div>
+
+  <a class="archive-cue" href="#">See everything → The Archive</a>
+</section>
+
+<footer>
+  <span>© 2026 Dr. Rohan Yashraj Gupta</span>
+  <span><a href="#">The Study (contact)</a> &nbsp;·&nbsp; <a href="#">LinkedIn</a> &nbsp;·&nbsp; <a href="#">GitHub</a></span>
+</footer>
+
+<!-- Docent — the first exhibit, quietly present -->
+<div class="docent">
+  <button class="docent-chip">Ask me about Rohan's talks</button>
+  <button class="docent-btn" aria-label="Open the docent">✳</button>
+</div>
+
+<script>
+  // Count-up stats — progressive enhancement, one-shot, reduced-motion aware
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const els = document.querySelectorAll('.stat b');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        const end = +e.target.dataset.count, t0 = performance.now();
+        const tick = (t) => {
+          const p = Math.min((t - t0) / 900, 1);
+          e.target.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    });
+    els.forEach(el => { el.textContent = '0'; io.observe(el); });
+  }
+</script>
+</body>
+</html>

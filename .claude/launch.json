@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "prototype",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8321", "--directory", "design-artifacts/C-UX-Scenarios/01-elenas-three-minute-vetting/1.1-home/Sketches"],
+      "port": 8321
+    }
+  ]
+}
