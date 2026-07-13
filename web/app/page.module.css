@@ -3,7 +3,7 @@
    portrait rises from its arch backdrop and stands on the stat strip
    (plinth). Curatorial side rails ≥1200px. */
 .hero {
-  --portrait-w: 216px;
+  --portrait-w: min(320px, 82vw);
   position: relative;
   min-height: 92vh;
   display: flex;
@@ -62,45 +62,28 @@
   margin-top: var(--space-md);
 }
 
-/* The cut-out: transparent portrait over a soft, borderless light-wash —
-   no contained shape, no hard edges. The warm glow separates the figure
-   from the canvas (essential in dark mode) and the bottom of the PNG
-   dissolves via mask so the crop line never shows. */
+/* The cut-out: large, flat, no effects. The figure stands directly on
+   the plain canvas, cropped by the stat-strip hairline — a photo meeting
+   the fold. */
 .portraitScene {
   position: relative;
   width: var(--portrait-w);
   margin: 0;
 }
 
-.portraitScene::before {
-  content: "";
-  position: absolute;
-  inset: -14% -26% -6%;
-  background: radial-gradient(
-    58% 52% at 50% 40%,
-    color-mix(in srgb, var(--accent) 13%, var(--canvas)) 0%,
-    color-mix(in srgb, var(--accent) 6%, var(--canvas)) 46%,
-    color-mix(in srgb, var(--accent) 0%, transparent) 74%
-  );
-}
-
 .portrait {
-  position: relative;
   display: block;
   width: 100%;
   height: auto;
-  -webkit-mask-image: linear-gradient(to bottom, #000 74%, transparent 99%);
-  mask-image: linear-gradient(to bottom, #000 74%, transparent 99%);
 }
 
 /* The plinth: a measured placard strip — one hairline, three aligned
-   bays, the portrait's feet on the line. */
+   bays. On mobile the hairline crops the figure directly (no gap). */
 .stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   width: 100%;
   border-top: 1px solid var(--line);
-  margin-top: var(--space-xl);
   padding-top: var(--space-lg);
 }
 
@@ -136,7 +119,11 @@
 
 @media (min-width: 900px) {
   .hero {
-    --portrait-w: clamp(264px, 26vw, 340px);
+    --portrait-w: clamp(340px, 36vw, 480px);
+  }
+
+  .stats {
+    margin-top: var(--space-xl);
   }
 
   .stage {
@@ -183,7 +170,7 @@
 /* Short walls: compress the poster so the whole proof stays in view */
 @media (min-width: 900px) and (max-height: 820px) {
   .hero {
-    --portrait-w: clamp(220px, 21vw, 280px);
+    --portrait-w: clamp(300px, 30vw, 400px);
     min-height: auto;
     padding-top: var(--space-xl);
   }

@@ -97,16 +97,16 @@ export default async function Home() {
               <p className={styles.niche}>{settings.heroNiche}</p>
               <p className={styles.anchor}>{settings.heroAnchor}</p>
             </div>
-            {/* The cut-out: transparent PNG over a soft light-wash — no
-                contained shape, the figure dissolves into the wall.
-                priority: it shares the LCP viewport with the name */}
+            {/* The cut-out: large, flat, no effects — the figure stands
+                cropped on the stat-strip line, like a photo meeting the
+                fold. priority: it shares the LCP viewport with the name */}
             <figure className={styles.portraitScene}>
               <Image
                 src={heroPortrait}
                 alt={`Portrait of ${settings.heroName}`}
                 priority
                 className={styles.portrait}
-                sizes="(max-width: 899px) 216px, 340px"
+                sizes="(max-width: 899px) 82vw, 480px"
               />
             </figure>
           </div>
