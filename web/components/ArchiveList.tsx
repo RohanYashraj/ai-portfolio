@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import type { ArchiveEntry } from "../lib/content";
 import { FilterBar, type WorkKind } from "./FilterBar";
 import { PlacardCard } from "./PlacardCard";
@@ -18,55 +18,60 @@ function parseType(raw: string | null): WorkKind | null {
     : null;
 }
 
+/* The URL is the single filter store: chips write it (replaceState + a
+   popstate ping), back/forward and the ?type= deep link read the same way.
+   The server snapshot is null — static HTML always carries the full list;
+   the deep link applies at hydration. */
+function subscribe(onChange: () => void) {
+  window.addEventListener("popstate", onChange);
+  return () => window.removeEventListener("popstate", onChange);
+}
+
+function useTypeParam(): WorkKind | null {
+  return useSyncExternalStore(
+    subscribe,
+    () => parseType(new URLSearchParams(window.location.search).get("type")),
+    () => null
+  );
+}
+
+function setTypeParam(kind: WorkKind | null) {
+  const url = new URL(window.location.href);
+  if (kind) url.searchParams.set("type", kind);
+  else url.searchParams.delete("type");
+  window.history.replaceState(null, "", url);
+  window.dispatchEvent(new PopStateEvent("popstate"));
+}
+
 type Props = {
   entries: ArchiveEntry[];
 };
 
-/**
- * The index drawer: FilterBar + year-subdivided compact rows. Entries are
- * server-rendered in full (SSG carries one HTML for every query string);
- * filtering — including the ?type= deep link — is a hydration enhancement.
- */
+/** The index drawer: FilterBar + year-subdivided compact rows. */
 export function ArchiveList({ entries }: Props) {
-  const [active, setActive] = useState<WorkKind | null>(null);
+  const requested = useTypeParam();
 
   const counts: Record<WorkKind, number> = { project: 0, paper: 0, talk: 0 };
   for (const entry of entries) counts[entry.kind] += 1;
 
-  useEffect(() => {
-    const type = parseType(
-      new URLSearchParams(window.location.search).get("type")
-    );
-    /* A deep link to an empty kind falls back to All — same "no empty
-       room" rule the disabled chips enforce. */
-    if (type && counts[type] > 0) setActive(type);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only deep-link read
-  }, []);
-
-  const select = (kind: WorkKind | null) => {
-    setActive(kind);
-    const url = new URL(window.location.href);
-    if (kind) url.searchParams.set("type", kind);
-    else url.searchParams.delete("type");
-    window.history.replaceState(null, "", url);
-  };
+  /* A deep link to an empty kind falls back to All — same "no empty room"
+     rule the disabled chips enforce. */
+  const active = requested && counts[requested] > 0 ? requested : null;
 
   const visible = active
     ? entries.filter((entry) => entry.kind === active)
     : entries;
 
-  let lastYear: string | null = null;
-
   return (
     <>
       <div className={styles.filter}>
-        <FilterBar counts={counts} active={active} onChange={select} />
+        <FilterBar counts={counts} active={active} onChange={setTypeParam} />
       </div>
       <ul className={styles.list}>
-        {visible.map((entry) => {
+        {visible.map((entry, index) => {
           const year = entry.date.slice(0, 4);
-          const newYear = year !== lastYear;
-          lastYear = year;
+          const newYear =
+            index === 0 || visible[index - 1].date.slice(0, 4) !== year;
           return (
             <li key={entry._id} className={styles.row}>
               {newYear ? <p className={styles.year}>{year}</p> : null}
