@@ -97,10 +97,10 @@ export default async function Home() {
               <p className={styles.niche}>{settings.heroNiche}</p>
               <p className={styles.anchor}>{settings.heroAnchor}</p>
             </div>
-            {/* The cut-out: transparent PNG rises out of its arch backdrop —
-                priority, it shares the LCP viewport with the name */}
+            {/* The cut-out: transparent PNG over a soft light-wash — no
+                contained shape, the figure dissolves into the wall.
+                priority: it shares the LCP viewport with the name */}
             <figure className={styles.portraitScene}>
-              <span className={styles.archBg} aria-hidden="true" />
               <Image
                 src={heroPortrait}
                 alt={`Portrait of ${settings.heroName}`}

@@ -62,41 +62,25 @@
   margin-top: var(--space-md);
 }
 
-/* The cut-out: transparent portrait rising out of a sunlit arch. The
-   head crosses the arch line — depth from layering, not shadows. */
+/* The cut-out: transparent portrait over a soft, borderless light-wash —
+   no contained shape, no hard edges. The warm glow separates the figure
+   from the canvas (essential in dark mode) and the bottom of the PNG
+   dissolves via mask so the crop line never shows. */
 .portraitScene {
   position: relative;
   width: var(--portrait-w);
   margin: 0;
 }
 
-/* Soft wall-wash behind the whole figure: separates hair from the canvas
-   in gallery-lighting (dark) mode, near-invisible in daylight. */
 .portraitScene::before {
   content: "";
   position: absolute;
-  inset: -8% -14%;
+  inset: -14% -26% -6%;
   background: radial-gradient(
-    55% 50% at 50% 28%,
-    color-mix(in srgb, var(--card) 90%, var(--ink)) 0%,
-    transparent 72%
-  );
-  opacity: 0.55;
-}
-
-.archBg {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 58%;
-  border-radius: 999px 999px 10px 10px;
-  border: 1px solid var(--line);
-  background: radial-gradient(
-    130% 130% at 50% 0%,
-    color-mix(in srgb, var(--accent) 16%, var(--canvas)) 0%,
-    color-mix(in srgb, var(--accent) 7%, var(--canvas)) 55%,
-    color-mix(in srgb, var(--accent) 3%, var(--canvas)) 100%
+    58% 52% at 50% 40%,
+    color-mix(in srgb, var(--accent) 13%, var(--canvas)) 0%,
+    color-mix(in srgb, var(--accent) 6%, var(--canvas)) 46%,
+    color-mix(in srgb, var(--accent) 0%, transparent) 74%
   );
 }
 
@@ -105,7 +89,8 @@
   display: block;
   width: 100%;
   height: auto;
-  z-index: 1;
+  -webkit-mask-image: linear-gradient(to bottom, #000 74%, transparent 99%);
+  mask-image: linear-gradient(to bottom, #000 74%, transparent 99%);
 }
 
 /* The plinth: a measured placard strip — one hairline, three aligned
