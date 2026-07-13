@@ -1,0 +1,34 @@
+/* Sticky below the header on mobile: header = 2×space-md padding + 44px
+   actions + 1px border ≈ 77px. Desktop scrolls normally per spec. */
+.filter {
+  background: var(--canvas);
+}
+
+@media (max-width: 767px) {
+  .filter {
+    position: sticky;
+    top: 77px;
+    z-index: 5;
+  }
+}
+
+.list {
+  list-style: none;
+}
+
+/* Hairline separator between entries (archive-v-line-lg) */
+.row + .row {
+  border-top: 1px solid var(--line);
+}
+
+.year {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  letter-spacing: 0.08em;
+  padding-top: var(--space-lg);
+}
+
+.row:first-child .year {
+  padding-top: var(--space-md);
+}

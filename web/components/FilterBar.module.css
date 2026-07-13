@@ -1,0 +1,53 @@
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+  flex-wrap: wrap;
+}
+
+.chip {
+  font-family: var(--font-default);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--ink);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0 var(--space-md);
+  min-height: 36px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+
+.chip:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+/* Active chip filled */
+.chip[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--canvas);
+}
+
+/* Zero-entry kinds are disabled up-front — never an empty room */
+.chip:disabled {
+  color: var(--ink-muted);
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.count {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  margin-left: var(--space-xs);
+}
+
+/* Touch-first viewports: 44px minimum targets */
+@media (max-width: 767px) {
+  .chip {
+    min-height: 44px;
+  }
+}
