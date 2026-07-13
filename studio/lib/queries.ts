@@ -26,6 +26,30 @@ export const ARCHIVE_QUERY = `*[_type == "work"]
     _id, title, "slug": slug.current, kind, date, headlineResult
   }`;
 
+/** Compact fields shared by related-entry placards. */
+const CASE_RELATED_FIELDS = `_id, title, "slug": slug.current, kind, date, headlineResult`;
+
+/**
+ * One case by slug (spec 2.2). `related` prefers the editor-curated list and
+ * falls back to same-kind recent (excluding self), so the trail stays warm
+ * without maintenance.
+ */
+export const CASE_QUERY = `*[_type == "work" && slug.current == $slug][0]{
+  _id, title, "slug": slug.current, kind, date, headlineResult,
+  context, approach, results,
+  artifacts[]{ label, url },
+  "related": select(
+    count(related) > 0 => related[]->{ ${CASE_RELATED_FIELDS} },
+    *[_type == "work" && kind == ^.kind && slug.current != $slug]
+      | order(date desc)[0...3]{ ${CASE_RELATED_FIELDS} }
+  )
+}`;
+
+/** Every published slug — SSG params + sitemap. */
+export const WORK_SLUGS_QUERY = `*[_type == "work" && defined(slug.current)]{
+  "slug": slug.current, date
+}`;
+
 export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings"][0]{
   siteName, heroName, heroNiche, heroAnchor, seoDescription, contactEmail,
   socialLinks[]{ label, url }

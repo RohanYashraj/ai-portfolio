@@ -1,9 +1,12 @@
 import { sanityClient } from "./sanity";
+import type { PortableTextBlock } from "next-sanity";
 import {
   ARCHIVE_QUERY,
+  CASE_QUERY,
   STATS_QUERY,
   SELECTED_WORKS_QUERY,
   SITE_SETTINGS_QUERY,
+  WORK_SLUGS_QUERY,
 } from "../../studio/lib/queries";
 
 export type SiteSettings = {
@@ -74,6 +77,37 @@ export type ArchiveEntry = {
 export async function getArchiveEntries(): Promise<ArchiveEntry[]> {
   try {
     return (await sanityClient.fetch(ARCHIVE_QUERY, {}, fetchOptions)) ?? [];
+  } catch {
+    return [];
+  }
+}
+
+export type CaseDetail = {
+  _id: string;
+  title: string;
+  slug: string;
+  kind: "project" | "paper" | "talk";
+  date: string;
+  headlineResult: string;
+  context: PortableTextBlock[] | null;
+  approach: PortableTextBlock[] | null;
+  results: PortableTextBlock[] | null;
+  artifacts: { label: string; url: string }[] | null;
+  related: ArchiveEntry[] | null;
+};
+
+/** Null = unknown slug (or CMS unreachable) → the route 404s honestly. */
+export async function getCase(slug: string): Promise<CaseDetail | null> {
+  try {
+    return await sanityClient.fetch(CASE_QUERY, { slug }, fetchOptions);
+  } catch {
+    return null;
+  }
+}
+
+export async function getWorkSlugs(): Promise<{ slug: string; date: string }[]> {
+  try {
+    return (await sanityClient.fetch(WORK_SLUGS_QUERY, {}, fetchOptions)) ?? [];
   } catch {
     return [];
   }
