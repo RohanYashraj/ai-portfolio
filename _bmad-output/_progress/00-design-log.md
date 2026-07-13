@@ -6,8 +6,8 @@
 
 ## Current
 
-**Phase:** 5 — Agentic Development: Archive Case Detail built ✅ (2026-07-13, branch `feature/archive-case-detail`) · [T] round 1 for 1.1/1.2/2.1 PASS, sign-off pending Rohan
-**Next:** Rohan: seed re-import for case bodies + human pass/approval for 1.1/1.2/2.1 / [T] for 2.2 / next build: 1.3 Speaking & Writing or 1.4 The Study / replace sample works
+**Phase:** 5 — Agentic Development: Archive Case Detail built ✅ · real content migrated from old site ✅ (2026-07-13, branch `feature/archive-case-detail`) · [T] round 1 for 1.1/1.2/2.1 PASS, sign-off pending Rohan
+**Next:** Rohan: human pass/approval for 1.1/1.2/2.1 + content review (project dates inferred; careerStartYear 2019 vs old site's 2017) / [T] for 2.2 / next build: 1.3 Speaking & Writing or 1.4 The Study
 
 **Backlog:**
 - [ ] Speaker one-pager PDF (bio + topics + photo) — post-launch (decision Q7)
@@ -123,6 +123,12 @@
 **Built:** `/archive/[slug]` — one template, three types. Content contract extended additively (context/approach/results portable text, artifacts, related, docent case tap); CASE_QUERY with GROQ same-kind related fallback; case header with filter-preserving breadcrumb (sessionStorage — soft navs carry no referrer), headline result above the fold (366px at 375w); artifact chips new-tab; typed JSON-LD (CreativeWork/ScholarlyArticle/PresentationDigitalDocument); per-case og+canonical; case URLs in sitemap (6 total). 16/16 acceptance criteria; lint+build clean, all 4 slugs prerendered + ISR. **Awaiting Rohan:** seed re-import (or Studio content) to light up body sections/artifacts — Minimal state verified live meanwhile.
 
 **Next:** Rohan content + human passes → [T] for 2.2 → next unit 1.3 or 1.4
+
+### 2026-07-13 — Real Content Migrated from rohanyashraj.github.io
+
+**Source:** old site's `data/workData.ts` + `resumeData.ts` (github.com/RohanYashraj/rohanyashraj.github.io) → `studio/seed/seed-content.ndjson` → imported by Rohan; 4 sample works deleted.
+**Live dataset:** 28 works — 5 projects, 10 papers (artifact links), 13 talks; wall = SOA interpretable-ML report (pinned) · 24th GCA talk · PhD motor-fraud classifier · Health Claims Analytics (~800M scheme). Results narratives carry real resume numbers (20% claims-efficiency, ~90% processing-time cut, etc.). siteSettings untouched (careerStartYear stays Rohan's 2019; old site derived 2017 — his call). Home stats now 7+/10/13; archive 28 rows 2025→2019; sitemap 30 URLs; full case-body render path verified live (closes 2.2's pending item).
+**Editorial notes for Rohan:** project dates inferred from resume periods — verify; "SOA Research" project folded into its RP01 paper; "CAS Research" kept as a project (no publication link found).
 
 ## Key Decisions
 
