@@ -1,7 +1,9 @@
 /* ── Entrance Hero: the poster wall ────────────────────────────── */
-/* Mobile: stacked poster. Desktop (≥900px): poster name left, portrait
-   standing on the stat rail (plinth) right. Curatorial side rails ≥1200px. */
+/* Mobile: stacked poster. Desktop (≥900px): poster name left; the cut-out
+   portrait rises from its arch backdrop and stands on the stat strip
+   (plinth). Curatorial side rails ≥1200px. */
 .hero {
+  --portrait-w: 216px;
   position: relative;
   min-height: 92vh;
   display: flex;
@@ -60,40 +62,85 @@
   margin-top: var(--space-md);
 }
 
-/* Museum-arch frame — the artist as exhibit */
-.portraitFrame {
-  width: 208px;
+/* The cut-out: transparent portrait rising out of a sunlit arch. The
+   head crosses the arch line — depth from layering, not shadows. */
+.portraitScene {
+  position: relative;
+  width: var(--portrait-w);
   margin: 0;
 }
 
+/* Soft wall-wash behind the whole figure: separates hair from the canvas
+   in gallery-lighting (dark) mode, near-invisible in daylight. */
+.portraitScene::before {
+  content: "";
+  position: absolute;
+  inset: -8% -14%;
+  background: radial-gradient(
+    55% 50% at 50% 28%,
+    color-mix(in srgb, var(--card) 90%, var(--ink)) 0%,
+    transparent 72%
+  );
+  opacity: 0.55;
+}
+
+.archBg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 58%;
+  border-radius: 999px 999px 10px 10px;
+  border: 1px solid var(--line);
+  background: radial-gradient(
+    130% 130% at 50% 0%,
+    color-mix(in srgb, var(--accent) 16%, var(--canvas)) 0%,
+    color-mix(in srgb, var(--accent) 7%, var(--canvas)) 55%,
+    color-mix(in srgb, var(--accent) 3%, var(--canvas)) 100%
+  );
+}
+
 .portrait {
+  position: relative;
   display: block;
   width: 100%;
   height: auto;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 999px 999px 8px 8px;
+  z-index: 1;
 }
 
-.figCaption {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--ink-muted);
-  letter-spacing: 0.06em;
-  margin-top: var(--space-sm);
-  text-align: center;
-}
-
-/* The plinth: one hairline rail carrying proof and direction */
-.heroRail {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--space-lg);
+/* The plinth: a measured placard strip — one hairline, three aligned
+   bays, the portrait's feet on the line. */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: 100%;
   border-top: 1px solid var(--line);
   margin-top: var(--space-xl);
   padding-top: var(--space-lg);
+}
+
+.stats > * {
+  padding-inline: var(--space-md);
+  border-left: 1px solid var(--line);
+}
+
+.stats > *:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+
+/* stats to room cue: let the proof breathe before inviting movement */
+.cue {
+  align-self: center;
+  margin-top: var(--space-2xl);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--ink-muted);
+  text-decoration: none;
+}
+
+.cue:hover {
+  color: var(--accent);
 }
 
 /* Curatorial side rails — wide walls only */
@@ -103,32 +150,69 @@
 }
 
 @media (min-width: 900px) {
+  .hero {
+    --portrait-w: clamp(264px, 26vw, 340px);
+  }
+
   .stage {
     display: block;
     text-align: left;
-    /* room for the portrait to stand clear of the poster type */
-    padding-right: clamp(280px, 30vw, 372px);
-    min-height: clamp(300px, 32vw, 400px);
+    padding-right: calc(var(--portrait-w) + var(--space-2xl));
+    min-height: calc(var(--portrait-w) - var(--space-xl));
   }
 
   .heroText {
     align-items: flex-start;
   }
 
-  .portraitFrame {
+  .portraitScene {
     position: absolute;
     right: var(--space-lg);
     bottom: calc(-1 * var(--space-xl) - 1px); /* feet on the plinth line */
-    width: clamp(260px, 26vw, 340px);
     z-index: 1;
   }
 
-  .figCaption {
-    display: none; /* the plinth tells the story on desktop */
+  /* the strip's hairline runs the full wall; its bays stop at the plinth */
+  .stats {
+    padding-right: calc(var(--portrait-w) + var(--space-lg));
   }
 
-  .heroRail {
-    padding-right: clamp(280px, 30vw, 372px); /* cue clears the portrait */
+  /* element-qualified: outweighs StatBlock's own centered default */
+  .stats > a,
+  .stats > div {
+    text-align: left;
+    align-items: flex-start;
+    padding-inline: var(--space-lg);
+  }
+
+  .stats > a:first-child,
+  .stats > div:first-child {
+    padding-left: 0;
+  }
+
+  .cue {
+    align-self: flex-start;
+  }
+}
+
+/* Short walls: compress the poster so the whole proof stays in view */
+@media (min-width: 900px) and (max-height: 820px) {
+  .hero {
+    --portrait-w: clamp(220px, 21vw, 280px);
+    min-height: auto;
+    padding-top: var(--space-xl);
+  }
+
+  .name {
+    font-size: clamp(40px, 6.5vw, 84px);
+  }
+
+  .niche {
+    font-size: var(--text-xl);
+  }
+
+  .cue {
+    margin-top: var(--space-xl);
   }
 }
 
@@ -164,51 +248,6 @@
   .anchor {
     display: none;
   }
-}
-
-.niche {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: var(--text-xl);
-  font-weight: 500;
-  color: var(--accent);
-  margin-top: var(--space-md);
-}
-
-.anchor {
-  font-size: var(--text-md);
-  color: var(--ink-muted);
-  margin-top: var(--space-md);
-}
-
-/* hero identity block to stat strip: related but distinct proof layers.
-   3-across on mobile per spec — never a vertical stack. */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  gap: var(--space-sm);
-  margin-top: var(--space-xl);
-  justify-content: center;
-}
-
-@media (min-width: 768px) {
-  .stats {
-    gap: var(--space-2xl);
-    justify-content: flex-start;
-  }
-}
-
-/* stats to room cue: let the proof breathe before inviting movement */
-.cue {
-  margin-top: var(--space-2xl);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--ink-muted);
-  text-decoration: none;
-}
-
-.cue:hover {
-  color: var(--accent);
 }
 
 /* ── Selected Works ────────────────────────────────────────────── */

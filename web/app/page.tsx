@@ -97,45 +97,42 @@ export default async function Home() {
               <p className={styles.niche}>{settings.heroNiche}</p>
               <p className={styles.anchor}>{settings.heroAnchor}</p>
             </div>
-            {/* Priority: the portrait shares the LCP viewport with the name */}
-            <figure className={styles.portraitFrame}>
+            {/* The cut-out: transparent PNG rises out of its arch backdrop —
+                priority, it shares the LCP viewport with the name */}
+            <figure className={styles.portraitScene}>
+              <span className={styles.archBg} aria-hidden="true" />
               <Image
                 src={heroPortrait}
                 alt={`Portrait of ${settings.heroName}`}
                 priority
                 className={styles.portrait}
-                sizes="(max-width: 899px) 208px, 340px"
+                sizes="(max-width: 899px) 216px, 340px"
               />
-              <figcaption className={styles.figCaption}>
-                fig. 01 — the artist
-              </figcaption>
             </figure>
           </div>
-          {/* The plinth: stats + room cue on one hairline rail */}
-          <div className={styles.heroRail}>
-            {stats ? (
-              <div className={styles.stats}>
-                <StatBlock
-                  value={stats.years}
-                  suffix="+"
-                  label="years in actuarial & AI"
-                />
-                <StatBlock
-                  value={stats.papers}
-                  label="research papers"
-                  href="/archive?type=paper"
-                />
-                <StatBlock
-                  value={stats.talks}
-                  label="conference talks"
-                  href="/speaking"
-                />
-              </div>
-            ) : null}
-            <a className={styles.cue} href="#selected-works">
-              ↓ Enter: Selected Works
-            </a>
-          </div>
+          {/* The plinth: a measured placard strip the portrait stands on */}
+          {stats ? (
+            <div className={styles.stats}>
+              <StatBlock
+                value={stats.years}
+                suffix="+"
+                label="years in actuarial & AI"
+              />
+              <StatBlock
+                value={stats.papers}
+                label="research papers"
+                href="/archive?type=paper"
+              />
+              <StatBlock
+                value={stats.talks}
+                label="conference talks"
+                href="/speaking"
+              />
+            </div>
+          ) : null}
+          <a className={styles.cue} href="#selected-works">
+            ↓ Enter: Selected Works
+          </a>
         </section>
 
         {/* SELECTED WORKS — the 15-second proof room */}
