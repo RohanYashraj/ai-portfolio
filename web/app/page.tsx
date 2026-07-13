@@ -79,14 +79,40 @@ export default async function Home() {
     <>
       <SiteHeader siteName={settings.siteName} />
       <main>
-        {/* ENTRANCE HERO — the <1s credibility hypothesis: who / what / how
-            much — made personal: the artist greets you at the entrance */}
+        {/* ENTRANCE HERO — the poster wall. The <1s credibility hypothesis
+            (who / what / how much) composed as a gallery entrance: poster
+            name, curatorial side rails, and the artist's portrait standing
+            on the stat rail like an exhibit on its plinth. */}
         <section className={styles.hero}>
-          <div className={styles.heroText}>
-            <p className={styles.greeting}>Hello — I&apos;m</p>
-            <h1>{settings.heroName}</h1>
-            <p className={styles.niche}>{settings.heroNiche}</p>
-            <p className={styles.anchor}>{settings.heroAnchor}</p>
+          <p className={styles.railLeft} aria-hidden="true">
+            {settings.heroAnchor}
+          </p>
+          <p className={styles.railRight} aria-hidden="true">
+            a working retrospective — {new Date().getFullYear()}
+          </p>
+          <div className={styles.stage}>
+            <div className={styles.heroText}>
+              <p className={styles.greeting}>Hello — I&apos;m</p>
+              <h1 className={styles.name}>{settings.heroName}</h1>
+              <p className={styles.niche}>{settings.heroNiche}</p>
+              <p className={styles.anchor}>{settings.heroAnchor}</p>
+            </div>
+            {/* Priority: the portrait shares the LCP viewport with the name */}
+            <figure className={styles.portraitFrame}>
+              <Image
+                src={heroPortrait}
+                alt={`Portrait of ${settings.heroName}`}
+                priority
+                className={styles.portrait}
+                sizes="(max-width: 899px) 208px, 340px"
+              />
+              <figcaption className={styles.figCaption}>
+                fig. 01 — the artist
+              </figcaption>
+            </figure>
+          </div>
+          {/* The plinth: stats + room cue on one hairline rail */}
+          <div className={styles.heroRail}>
             {stats ? (
               <div className={styles.stats}>
                 <StatBlock
@@ -109,17 +135,6 @@ export default async function Home() {
             <a className={styles.cue} href="#selected-works">
               ↓ Enter: Selected Works
             </a>
-          </div>
-          {/* Portrait in a museum-arch frame; priority = it shares the LCP
-              viewport with the name */}
-          <div className={styles.portraitFrame}>
-            <Image
-              src={heroPortrait}
-              alt={`Portrait of ${settings.heroName}`}
-              priority
-              className={styles.portrait}
-              sizes="(max-width: 767px) 208px, 400px"
-            />
           </div>
         </section>
 

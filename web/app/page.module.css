@@ -1,15 +1,25 @@
-/* ── Entrance Hero ─────────────────────────────────────────────── */
-/* Mobile: portrait greets first, identity follows, all centered.
-   Desktop: two columns — text left, portrait right (editorial). */
+/* ── Entrance Hero: the poster wall ────────────────────────────── */
+/* Mobile: stacked poster. Desktop (≥900px): poster name left, portrait
+   standing on the stat rail (plinth) right. Curatorial side rails ≥1200px. */
 .hero {
-  min-height: 88vh;
+  position: relative;
+  min-height: 92vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-lg) var(--space-lg);
+}
+
+.stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   text-align: center;
   gap: var(--space-xl);
-  padding: var(--space-2xl) var(--space-lg);
 }
 
 .heroText {
@@ -23,42 +33,82 @@
   font-size: var(--text-sm);
   color: var(--ink-muted);
   letter-spacing: 0.06em;
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
 }
 
-.hero h1 {
+.name {
   font-family: var(--font-display);
-  font-size: var(--text-3xl);
+  font-size: var(--text-poster);
   font-weight: 700;
-  letter-spacing: -0.01em;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
-/* Museum-arch frame — the gallery's own shape; photo sits like an exhibit */
+.niche {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  color: var(--accent);
+  margin-top: var(--space-md);
+}
+
+.anchor {
+  font-size: var(--text-md);
+  color: var(--ink-muted);
+  margin-top: var(--space-md);
+}
+
+/* Museum-arch frame — the artist as exhibit */
 .portraitFrame {
-  order: -1; /* mobile: the artist greets you before the placard */
   width: 208px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 999px 999px 8px 8px;
-  overflow: hidden;
+  margin: 0;
 }
 
 .portrait {
   display: block;
   width: 100%;
   height: auto;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px 999px 8px 8px;
 }
 
-@media (min-width: 768px) {
-  .hero {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    column-gap: var(--space-2xl);
-    align-items: center;
+.figCaption {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  letter-spacing: 0.06em;
+  margin-top: var(--space-sm);
+  text-align: center;
+}
+
+/* The plinth: one hairline rail carrying proof and direction */
+.heroRail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  border-top: 1px solid var(--line);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+}
+
+/* Curatorial side rails — wide walls only */
+.railLeft,
+.railRight {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .stage {
+    display: block;
     text-align: left;
-    width: 100%;
-    max-width: 1080px;
-    margin: 0 auto;
+    /* room for the portrait to stand clear of the poster type */
+    padding-right: clamp(280px, 30vw, 372px);
+    min-height: clamp(300px, 32vw, 400px);
   }
 
   .heroText {
@@ -66,8 +116,53 @@
   }
 
   .portraitFrame {
-    order: 0;
-    width: 400px;
+    position: absolute;
+    right: var(--space-lg);
+    bottom: calc(-1 * var(--space-xl) - 1px); /* feet on the plinth line */
+    width: clamp(260px, 26vw, 340px);
+    z-index: 1;
+  }
+
+  .figCaption {
+    display: none; /* the plinth tells the story on desktop */
+  }
+
+  .heroRail {
+    padding-right: clamp(280px, 30vw, 372px); /* cue clears the portrait */
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero {
+    padding-inline: calc(var(--space-lg) + 44px);
+  }
+
+  .railLeft,
+  .railRight {
+    display: block;
+    position: absolute;
+    top: 50%;
+    writing-mode: vertical-rl;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  .railLeft {
+    left: var(--space-md);
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  .railRight {
+    right: var(--space-md);
+    transform: translateY(-50%);
+  }
+
+  /* the vertical rail carries the anchor on wide walls */
+  .anchor {
+    display: none;
   }
 }
 

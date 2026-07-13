@@ -20,6 +20,8 @@
   --text-xl: 24px;
   --text-2xl: 32px;
   --text-3xl: 40px;
+  /* Poster scale — the entrance wall only */
+  --text-poster: clamp(44px, 8.5vw, 104px);
 
   /* Color roles — daylight gallery */
   --canvas: #faf8f4;
