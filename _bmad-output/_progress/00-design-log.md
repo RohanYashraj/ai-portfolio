@@ -6,8 +6,8 @@
 
 ## Current
 
-**Phase:** 5 — Agentic Development: The Archive built ✅ · [T] round 1 for 1.1/1.2/2.1 PASS after fixes, sign-off pending Rohan (2026-07-13, branch `feature/archive`)
-**Next:** Rohan's human pass + approval for 1.1/1.2/2.1 / next build unit: 2.2 Archive Case Detail / replace sample works in Studio
+**Phase:** 5 — Agentic Development: Archive Case Detail built ✅ (2026-07-13, branch `feature/archive-case-detail`) · [T] round 1 for 1.1/1.2/2.1 PASS, sign-off pending Rohan
+**Next:** Rohan: seed re-import for case bodies + human pass/approval for 1.1/1.2/2.1 / [T] for 2.2 / next build: 1.3 Speaking & Writing or 1.4 The Study / replace sample works
 
 **Backlog:**
 - [ ] Speaker one-pager PDF (bio + topics + photo) — post-launch (decision Q7)
@@ -22,7 +22,7 @@
 | 01-elenas-three-minute-vetting | 1.3 | Speaking & Writing | specified | 2026-07-12 |
 | 01-elenas-three-minute-vetting | 1.4 | The Study | specified | 2026-07-12 |
 | 02-rahuls-55-second-proof-hunt | 2.1 | The Archive | built | 2026-07-13 |
-| 02-rahuls-55-second-proof-hunt | 2.2 | Archive Case Detail | specified | 2026-07-12 |
+| 02-rahuls-55-second-proof-hunt | 2.2 | Archive Case Detail | built | 2026-07-13 |
 | 03-ananyas-guided-tour | 3.1 | About the Artist | specified | 2026-07-12 |
 | 03-ananyas-guided-tour | 3.2 | Docent Conversation | specified (storyboard, 6 frames) | 2026-07-12 |
 | 04-rahuls-wrong-turn | 4.1 | 404 / Fallback | specified | 2026-07-12 |
@@ -114,6 +114,15 @@
 
 **Agent:** Claude (WDS [T], autonomous per Rohan) · **Report:** `_bmad-output/implementation-artifacts/testing/TR-001-2026-07-13.md`
 **Result:** PASS after fixes — 4 issues found (2 medium, 2 low), all fixed and retested same-day: og/twitter social metadata + canonical (ISS-001/003), robots.txt + sitemap.xml (ISS-002), archive year subdividers h2 for heading hierarchy (ISS-004). Happy paths, error states, edge cases, design-system tokens, and a11y checks pass. OBS-01: count-up/smooth-scroll suspend under throttled automation renderers — self-healing, SSR-safe, no launch risk. **Sign-off pending Rohan:** human pass items (real-keyboard chip activation, animation feel on device, VoiceOver spot-check) + designer approval → then statuses flip to `approved`.
+
+### 2026-07-13 — Phase 5: Archive Case Detail Built (spec 2.2)
+
+**Agent:** Claude (WDS [D], steps 01–05, autonomous per Rohan)
+**Branch:** `feature/archive-case-detail` (off `feature/archive`) · **Plan/dialog:** `_bmad-output/implementation-artifacts/plan-archive-case-detail.md`
+
+**Built:** `/archive/[slug]` — one template, three types. Content contract extended additively (context/approach/results portable text, artifacts, related, docent case tap); CASE_QUERY with GROQ same-kind related fallback; case header with filter-preserving breadcrumb (sessionStorage — soft navs carry no referrer), headline result above the fold (366px at 375w); artifact chips new-tab; typed JSON-LD (CreativeWork/ScholarlyArticle/PresentationDigitalDocument); per-case og+canonical; case URLs in sitemap (6 total). 16/16 acceptance criteria; lint+build clean, all 4 slugs prerendered + ISR. **Awaiting Rohan:** seed re-import (or Studio content) to light up body sections/artifacts — Minimal state verified live meanwhile.
+
+**Next:** Rohan content + human passes → [T] for 2.2 → next unit 1.3 or 1.4
 
 ## Key Decisions
 
