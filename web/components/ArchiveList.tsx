@@ -74,7 +74,8 @@ export function ArchiveList({ entries }: Props) {
             index === 0 || visible[index - 1].date.slice(0, 4) !== year;
           return (
             <li key={entry._id} className={styles.row}>
-              {newYear ? <p className={styles.year}>{year}</p> : null}
+              {/* h2: keeps h1→h2→h3 intact — entry titles are h3 (ISS-004) */}
+              {newYear ? <h2 className={styles.year}>{year}</h2> : null}
               <PlacardCard work={entry} compact />
             </li>
           );

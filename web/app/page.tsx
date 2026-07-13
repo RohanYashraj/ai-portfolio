@@ -17,9 +17,18 @@ import styles from "./page.module.css";
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
   if (!settings) return {};
+  const title = `${settings.heroName} — ${settings.heroNiche}`;
   return {
-    title: `${settings.heroName} — ${settings.heroNiche}`,
+    title,
     description: settings.seoDescription,
+    alternates: { canonical: "/" },
+    openGraph: {
+      title,
+      description: settings.seoDescription,
+      url: "/",
+      siteName: settings.siteName,
+      type: "profile",
+    },
   };
 }
 

@@ -12,9 +12,19 @@ import styles from "./page.module.css";
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
   if (!settings) return { title: "The Archive" };
+  const title = `The Archive — ${settings.heroName}`;
+  const description = `Every project, paper, and talk by ${settings.heroName}, dated and filterable.`;
   return {
-    title: `The Archive — ${settings.heroName}`,
-    description: `Every project, paper, and talk by ${settings.heroName}, dated and filterable.`,
+    title,
+    description,
+    alternates: { canonical: "/archive" },
+    openGraph: {
+      title,
+      description,
+      url: "/archive",
+      siteName: settings.siteName,
+      type: "website",
+    },
   };
 }
 

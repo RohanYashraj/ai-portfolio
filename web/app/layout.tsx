@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Source_Serif_4, Inter, JetBrains_Mono } from "next/font/google";
+import { siteUrl } from "../lib/site";
 import "../styles/tokens.css";
 
 const display = Source_Serif_4({
@@ -18,9 +19,11 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: siteUrl,
   title: "Dr. Rohan Yashraj Gupta — the AI Actuary",
   description:
     "Dr. Rohan Yashraj Gupta — the AI Actuary. Actuary (FIA, FIAI) × data scientist: selected works, research papers, and conference talks.",
+  twitter: { card: "summary" },
 };
 
 /* Applies the saved (or system) theme before first paint to avoid a flash */

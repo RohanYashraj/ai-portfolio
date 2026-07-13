@@ -21,9 +21,11 @@
   border-top: 1px solid var(--line);
 }
 
+/* Semantically an h2; visually a quiet mono marker, not a heading */
 .year {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
+  font-weight: normal;
   color: var(--ink-muted);
   letter-spacing: 0.08em;
   padding-top: var(--space-lg);
