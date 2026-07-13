@@ -79,6 +79,77 @@ export const work = defineType({
         }),
       ],
     }),
+    /* Case-detail body (spec 2.2) — one skeleton, three types. All optional:
+       a case publishes in Minimal state and sections appear as they're
+       written. Additive only (AD-10). */
+    defineField({
+      name: "context",
+      type: "array",
+      description:
+        "The problem and its stakes, 2–3 sentences. (Paper: abstract · Talk: event context.)",
+      of: [{ type: "block" }],
+    }),
+    defineField({
+      name: "approach",
+      type: "array",
+      description:
+        "Decisions and trade-offs — judgment on display. Inline images allowed, sparingly. (Paper: method · Talk: topic.)",
+      of: [
+        { type: "block" },
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: "alt",
+              type: "string",
+              title: "Alt text",
+              validation: (rule) => rule.required(),
+            }),
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: "results",
+      type: "array",
+      description:
+        "Concrete, dated outcomes; numbers where they exist. (Talk: takeaways.)",
+      of: [{ type: "block" }],
+    }),
+    defineField({
+      name: "artifacts",
+      type: "array",
+      description:
+        "Verifiability beats adjectives: repo, demo, DOI, PDF, slides, recording…",
+      of: [
+        {
+          type: "object",
+          name: "artifact",
+          fields: [
+            defineField({
+              name: "label",
+              type: "string",
+              description: 'e.g. "Repository", "DOI", "Slides", "Recording"',
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: "url",
+              type: "url",
+              validation: (rule) => rule.required(),
+            }),
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: "related",
+      type: "array",
+      description:
+        "Keep the trail warm — the case that follows, the talk it produced. Falls back to same-type recent when empty.",
+      of: [{ type: "reference", to: [{ type: "work" }] }],
+      validation: (rule) => rule.max(3),
+    }),
   ],
   preview: {
     select: { title: "title", subtitle: "headlineResult", media: "visual" },

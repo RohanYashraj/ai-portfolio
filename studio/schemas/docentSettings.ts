@@ -31,6 +31,7 @@ export const docentSettings = defineType({
         defineField({ name: "speaking", type: "string" }),
         defineField({ name: "study", type: "string" }),
         defineField({ name: "archive", type: "string" }),
+        defineField({ name: "case", type: "string" }),
         defineField({ name: "about", type: "string" }),
       ],
     }),
