@@ -1,5 +1,6 @@
 import { sanityClient } from "./sanity";
 import {
+  ARCHIVE_QUERY,
   STATS_QUERY,
   SELECTED_WORKS_QUERY,
   SITE_SETTINGS_QUERY,
@@ -57,6 +58,24 @@ export async function getStats(): Promise<Stats | null> {
     return { years, papers: raw.papers, talks: raw.talks };
   } catch {
     return null;
+  }
+}
+
+export type ArchiveEntry = {
+  _id: string;
+  title: string;
+  slug: string;
+  kind: "project" | "paper" | "talk";
+  date: string;
+  headlineResult: string;
+};
+
+/** Every work, newest first. Sparse-safe: [] on failure, never placeholders. */
+export async function getArchiveEntries(): Promise<ArchiveEntry[]> {
+  try {
+    return (await sanityClient.fetch(ARCHIVE_QUERY, {}, fetchOptions)) ?? [];
+  } catch {
+    return [];
   }
 }
 

@@ -20,6 +20,12 @@ export const SELECTED_WORKS_QUERY = `*[_type == "work" && selected == true]
     visual{ "url": asset->url, "alt": alt, "aspectRatio": asset->metadata.dimensions.aspectRatio }
   }`;
 
+/** The Archive: every work, newest first — currency is the message (spec 2.1). */
+export const ARCHIVE_QUERY = `*[_type == "work"]
+  | order(date desc){
+    _id, title, "slug": slug.current, kind, date, headlineResult
+  }`;
+
 export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings"][0]{
   siteName, heroName, heroNiche, heroAnchor, seoDescription, contactEmail,
   socialLinks[]{ label, url }
