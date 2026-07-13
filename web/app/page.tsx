@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import {
   getSelectedWorks,
   getSiteSettings,
@@ -119,9 +120,9 @@ export default async function Home() {
             </div>
           ) : null}
           <div>
-            <a className={styles.archiveCue} href="/archive">
+            <Link className={styles.archiveCue} href="/archive">
               See everything → The Archive
-            </a>
+            </Link>
           </div>
         </section>
       </main>

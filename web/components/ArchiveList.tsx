@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import type { ArchiveEntry } from "../lib/content";
 import { FilterBar, type WorkKind } from "./FilterBar";
 import { PlacardCard } from "./PlacardCard";
@@ -57,6 +57,14 @@ export function ArchiveList({ entries }: Props) {
   /* A deep link to an empty kind falls back to All — same "no empty room"
      rule the disabled chips enforce. */
   const active = requested && counts[requested] > 0 ? requested : null;
+
+  /* Remember the filter for CaseBreadcrumb's way back — soft navigations
+     leave document.referrer empty, so the URL alone can't carry it. */
+  useEffect(() => {
+    try {
+      sessionStorage.setItem("archive-search", window.location.search);
+    } catch {}
+  }, [active]);
 
   const visible = active
     ? entries.filter((entry) => entry.kind === active)

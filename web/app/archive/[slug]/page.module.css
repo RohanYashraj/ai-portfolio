@@ -1,0 +1,103 @@
+/* Spec 2.2: page padding space-lg mobile / space-2xl desktop; section gap
+   space-2xl; headline result above the fold — always. */
+.page {
+  padding: var(--space-xl) var(--space-lg) var(--space-2xl);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.page > * + * {
+  margin-top: var(--space-2xl);
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: var(--space-2xl);
+  }
+}
+
+/* ── Case header ───────────────────────────────────────────────── */
+.caseHeader > * + * {
+  margin-top: var(--space-md);
+}
+
+.metadata {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.result {
+  font-size: var(--text-lg);
+  font-weight: 500;
+}
+
+/* ── Artifacts ─────────────────────────────────────────────────── */
+.artifacts {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.artifactChip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-md);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.artifactChip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── The placard (body) ────────────────────────────────────────── */
+.bodySection > * + * {
+  margin-top: var(--space-lg);
+}
+
+.bodyHeading {
+  font-family: var(--font-default);
+  font-size: var(--text-md);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+}
+
+.bodyText p + p {
+  margin-top: var(--space-lg);
+}
+
+.bodyImage {
+  display: block;
+  max-width: 100%;
+  border-radius: 2px;
+  margin-top: var(--space-lg);
+  background: var(--line);
+}
+
+/* ── Related ───────────────────────────────────────────────────── */
+.relatedList {
+  list-style: none;
+  margin-top: var(--space-md);
+}
+
+.relatedRow + .relatedRow {
+  border-top: 1px solid var(--line);
+}

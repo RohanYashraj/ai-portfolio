@@ -36,7 +36,15 @@ const CASE_RELATED_FIELDS = `_id, title, "slug": slug.current, kind, date, headl
  */
 export const CASE_QUERY = `*[_type == "work" && slug.current == $slug][0]{
   _id, title, "slug": slug.current, kind, date, headlineResult,
-  context, approach, results,
+  context,
+  approach[]{
+    ...,
+    _type == "image" => {
+      "url": asset->url, alt,
+      "aspectRatio": asset->metadata.dimensions.aspectRatio
+    }
+  },
+  results,
   artifacts[]{ label, url },
   "related": select(
     count(related) > 0 => related[]->{ ${CASE_RELATED_FIELDS} },
