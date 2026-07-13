@@ -1,7 +1,6 @@
 /* ── Entrance Hero: the poster wall ────────────────────────────── */
-/* Mobile: stacked poster. Desktop (≥900px): poster name left; the cut-out
-   portrait rises from its arch backdrop and stands on the stat strip
-   (plinth). Curatorial side rails ≥1200px. */
+/* Mobile: stacked poster. Desktop (≥900px): poster name left; the flat
+   cut-out portrait stands on the stat strip (plinth). */
 .hero {
   --portrait-w: min(320px, 82vw);
   position: relative;
@@ -111,12 +110,6 @@
   color: var(--accent);
 }
 
-/* Curatorial side rails — wide walls only */
-.railLeft,
-.railRight {
-  display: none;
-}
-
 @media (min-width: 900px) {
   .hero {
     --portrait-w: clamp(340px, 36vw, 480px);
@@ -185,40 +178,6 @@
 
   .cue {
     margin-top: var(--space-xl);
-  }
-}
-
-@media (min-width: 1200px) {
-  .hero {
-    padding-inline: calc(var(--space-lg) + 44px);
-  }
-
-  .railLeft,
-  .railRight {
-    display: block;
-    position: absolute;
-    top: 50%;
-    writing-mode: vertical-rl;
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: 0.1em;
-    color: var(--ink-muted);
-    white-space: nowrap;
-  }
-
-  .railLeft {
-    left: var(--space-md);
-    transform: translateY(-50%) rotate(180deg);
-  }
-
-  .railRight {
-    right: var(--space-md);
-    transform: translateY(-50%);
-  }
-
-  /* the vertical rail carries the anchor on wide walls */
-  .anchor {
-    display: none;
   }
 }
 

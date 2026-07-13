@@ -84,12 +84,6 @@ export default async function Home() {
             name, curatorial side rails, and the artist's portrait standing
             on the stat rail like an exhibit on its plinth. */}
         <section className={styles.hero}>
-          <p className={styles.railLeft} aria-hidden="true">
-            {settings.heroAnchor}
-          </p>
-          <p className={styles.railRight} aria-hidden="true">
-            a working retrospective — {new Date().getFullYear()}
-          </p>
           <div className={styles.stage}>
             <div className={styles.heroText}>
               <p className={styles.greeting}>Hello — I&apos;m</p>
