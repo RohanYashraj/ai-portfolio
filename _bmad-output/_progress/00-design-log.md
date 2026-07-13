@@ -6,8 +6,8 @@
 
 ## Current
 
-**Phase:** 5 — Agentic Development: Home + Selected Works built ✅ (2026-07-13, branch `feature/home-selected-works`)
-**Next:** [T] Acceptance Testing for 1.1/1.2 / next build unit: 2.1 The Archive / replace sample works in Studio
+**Phase:** 5 — Agentic Development: The Archive built ✅ (2026-07-13, branch `feature/archive`)
+**Next:** [T] Acceptance Testing for 1.1/1.2/2.1 / next build unit: 2.2 Archive Case Detail / replace sample works in Studio
 
 **Backlog:**
 - [ ] Speaker one-pager PDF (bio + topics + photo) — post-launch (decision Q7)
@@ -21,7 +21,7 @@
 | 01-elenas-three-minute-vetting | 1.2 | Selected Works | built | 2026-07-13 |
 | 01-elenas-three-minute-vetting | 1.3 | Speaking & Writing | specified | 2026-07-12 |
 | 01-elenas-three-minute-vetting | 1.4 | The Study | specified | 2026-07-12 |
-| 02-rahuls-55-second-proof-hunt | 2.1 | The Archive | specified | 2026-07-12 |
+| 02-rahuls-55-second-proof-hunt | 2.1 | The Archive | built | 2026-07-13 |
 | 02-rahuls-55-second-proof-hunt | 2.2 | Archive Case Detail | specified | 2026-07-12 |
 | 03-ananyas-guided-tour | 3.1 | About the Artist | specified | 2026-07-12 |
 | 03-ananyas-guided-tour | 3.2 | Docent Conversation | specified (storyboard, 6 frames) | 2026-07-12 |
@@ -100,6 +100,15 @@
 **Built:** Monorepo foundation (web/ Next.js 16.2 SSG + studio/ Sanity schemas + shared GROQ queries per AD-11), design tokens from the signed-off palette, six components (SiteHeader, SiteFooter, RoomTitle, StatBlock, PlacardCard, DocentLauncher), and the single scrolling page: hero with CMS-derived count-up stats + asymmetric placard wall. Sanity project `weju4mib` live, dev-seeded (sample works to replace). 20/20 acceptance criteria verified; production build passes, `/` static with 1h revalidate. Deviations documented (docent chip inert until 3.2 unit; zero-count stat guard; room links 404 until their units).
 
 **Next:** [T] Acceptance testing 1.1/1.2 → build 2.1 The Archive
+
+### 2026-07-13 — Phase 5: The Archive Built (spec 2.1)
+
+**Agent:** Claude (WDS [D] Development, steps 01–05, autonomous per Rohan)
+**Branch:** `feature/archive` (off `feature/home-selected-works`) · **Plan/dialog:** `_bmad-output/implementation-artifacts/plan-archive.md`
+
+**Built:** `/archive` route (SSG, 1h revalidate) — all works newest-first with year subdividers, PlacardCard `compact` variant (metadata-first index rows), new FilterBar (type chips, zero-entry kinds disabled, filtered count, 44px targets, sticky below header on mobile), URL-as-store filtering via useSyncExternalStore (`?type=paper` shareable, plurals tolerated, back/forward works), RoomTitle `as="h1"` prop. 17/17 acceptance criteria verified (mobile 375 primary, tablet, desktop, both themes, no-JS payload, lint+build clean). Deviations documented: filter applies at hydration (SSG constraint), singular param canonical, docent chip inert until 3.2, `/archive/[slug]` 404 until 2.2.
+
+**Next:** [T] Acceptance testing (incl. real-keyboard chip pass) → build 2.2 Archive Case Detail
 
 ## Key Decisions
 
