@@ -65,6 +65,33 @@
   }
 }
 
+/* Archive index-drawer row: no card chrome — hairline separators come from
+   the list. Metadata leads; whole row is the tap target (min 44px). */
+.compact {
+  display: block;
+  text-decoration: none;
+  padding: var(--space-lg) 0;
+  min-height: 44px;
+}
+
+.compact .metadata {
+  margin-top: 0;
+}
+
+.compact .title {
+  margin-top: var(--space-xs);
+  transition: color 0.2s;
+}
+
+.compact .result {
+  margin-top: var(--space-xs);
+  color: var(--ink-muted);
+}
+
+.compact:hover .title {
+  color: var(--accent);
+}
+
 .featured .title {
   font-size: var(--text-xl);
 }
