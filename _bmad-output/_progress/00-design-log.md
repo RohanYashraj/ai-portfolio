@@ -6,8 +6,8 @@
 
 ## Current
 
-**Phase:** 5 — Agentic Development: The Archive built ✅ (2026-07-13, branch `feature/archive`)
-**Next:** [T] Acceptance Testing for 1.1/1.2/2.1 / next build unit: 2.2 Archive Case Detail / replace sample works in Studio
+**Phase:** 5 — Agentic Development: The Archive built ✅ · [T] round 1 for 1.1/1.2/2.1 PASS after fixes, sign-off pending Rohan (2026-07-13, branch `feature/archive`)
+**Next:** Rohan's human pass + approval for 1.1/1.2/2.1 / next build unit: 2.2 Archive Case Detail / replace sample works in Studio
 
 **Backlog:**
 - [ ] Speaker one-pager PDF (bio + topics + photo) — post-launch (decision Q7)
@@ -109,6 +109,11 @@
 **Built:** `/archive` route (SSG, 1h revalidate) — all works newest-first with year subdividers, PlacardCard `compact` variant (metadata-first index rows), new FilterBar (type chips, zero-entry kinds disabled, filtered count, 44px targets, sticky below header on mobile), URL-as-store filtering via useSyncExternalStore (`?type=paper` shareable, plurals tolerated, back/forward works), RoomTitle `as="h1"` prop. 17/17 acceptance criteria verified (mobile 375 primary, tablet, desktop, both themes, no-JS payload, lint+build clean). Deviations documented: filter applies at hydration (SSG constraint), singular param canonical, docent chip inert until 3.2, `/archive/[slug]` 404 until 2.2.
 
 **Next:** [T] Acceptance testing (incl. real-keyboard chip pass) → build 2.2 Archive Case Detail
+
+### 2026-07-13 — Phase 5: [T] Acceptance Testing Round 1 (units 1.1 / 1.2 / 2.1)
+
+**Agent:** Claude (WDS [T], autonomous per Rohan) · **Report:** `_bmad-output/implementation-artifacts/testing/TR-001-2026-07-13.md`
+**Result:** PASS after fixes — 4 issues found (2 medium, 2 low), all fixed and retested same-day: og/twitter social metadata + canonical (ISS-001/003), robots.txt + sitemap.xml (ISS-002), archive year subdividers h2 for heading hierarchy (ISS-004). Happy paths, error states, edge cases, design-system tokens, and a11y checks pass. OBS-01: count-up/smooth-scroll suspend under throttled automation renderers — self-healing, SSR-safe, no launch risk. **Sign-off pending Rohan:** human pass items (real-keyboard chip activation, animation feel on device, VoiceOver spot-check) + designer approval → then statuses flip to `approved`.
 
 ## Key Decisions
 
