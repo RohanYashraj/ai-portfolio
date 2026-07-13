@@ -1,0 +1,17 @@
+/* Spec 2.1: page padding space-lg mobile / space-2xl desktop; compact
+   index-drawer density — respect for Rahul's clock. */
+.page {
+  padding: var(--space-xl) var(--space-lg) var(--space-2xl);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.page > * + * {
+  margin-top: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: var(--space-2xl);
+  }
+}

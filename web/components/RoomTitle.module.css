@@ -1,7 +1,13 @@
-.roomTitle h2 {
+.roomTitle .title {
   font-family: var(--font-display);
   font-size: var(--text-xl);
   font-weight: 600;
+}
+
+/* Standalone room pages carry the room name as the page H1 */
+h1.title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
 }
 
 .roomTitle p {
