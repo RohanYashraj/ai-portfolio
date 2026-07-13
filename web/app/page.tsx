@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import heroPortrait from "../public/hero.png";
 import {
   getSelectedWorks,
   getSiteSettings,
@@ -77,33 +79,48 @@ export default async function Home() {
     <>
       <SiteHeader siteName={settings.siteName} />
       <main>
-        {/* ENTRANCE HERO — the <1s credibility hypothesis: who / what / how much */}
+        {/* ENTRANCE HERO — the <1s credibility hypothesis: who / what / how
+            much — made personal: the artist greets you at the entrance */}
         <section className={styles.hero}>
-          <h1>{settings.heroName}</h1>
-          <p className={styles.niche}>{settings.heroNiche}</p>
-          <p className={styles.anchor}>{settings.heroAnchor}</p>
-          {stats ? (
-            <div className={styles.stats}>
-              <StatBlock
-                value={stats.years}
-                suffix="+"
-                label="years in actuarial & AI"
-              />
-              <StatBlock
-                value={stats.papers}
-                label="research papers"
-                href="/archive?type=paper"
-              />
-              <StatBlock
-                value={stats.talks}
-                label="conference talks"
-                href="/speaking"
-              />
-            </div>
-          ) : null}
-          <a className={styles.cue} href="#selected-works">
-            ↓ Enter: Selected Works
-          </a>
+          <div className={styles.heroText}>
+            <p className={styles.greeting}>Hello — I&apos;m</p>
+            <h1>{settings.heroName}</h1>
+            <p className={styles.niche}>{settings.heroNiche}</p>
+            <p className={styles.anchor}>{settings.heroAnchor}</p>
+            {stats ? (
+              <div className={styles.stats}>
+                <StatBlock
+                  value={stats.years}
+                  suffix="+"
+                  label="years in actuarial & AI"
+                />
+                <StatBlock
+                  value={stats.papers}
+                  label="research papers"
+                  href="/archive?type=paper"
+                />
+                <StatBlock
+                  value={stats.talks}
+                  label="conference talks"
+                  href="/speaking"
+                />
+              </div>
+            ) : null}
+            <a className={styles.cue} href="#selected-works">
+              ↓ Enter: Selected Works
+            </a>
+          </div>
+          {/* Portrait in a museum-arch frame; priority = it shares the LCP
+              viewport with the name */}
+          <div className={styles.portraitFrame}>
+            <Image
+              src={heroPortrait}
+              alt={`Portrait of ${settings.heroName}`}
+              priority
+              className={styles.portrait}
+              sizes="(max-width: 767px) 208px, 400px"
+            />
+          </div>
         </section>
 
         {/* SELECTED WORKS — the 15-second proof room */}
