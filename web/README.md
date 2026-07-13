@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# web/ — rohanyashraj.com
 
-## Getting Started
+Next.js 16 app for the gallery-retrospective portfolio. Static-first (SSG/ISR);
+all content comes from Sanity (see `../studio/`, the content contract).
+Architecture: `../_bmad-output/planning-artifacts/architecture/architecture-ai-portfolio-2026-07-12/ARCHITECTURE-SPINE.md`.
 
-First, run the development server:
+## Setup
 
 ```bash
+npm install
+cp .env.local.example .env.local   # or create it — see below
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | Required | Purpose |
+|----------|----------|---------|
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | yes | Sanity project (public reads via CDN) |
+| `NEXT_PUBLIC_SANITY_DATASET` | yes | Dataset name (`production`) |
+| `AGENT_URL` | no | Docent sidecar base URL; unset = docent UI hidden (AD-2) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Secrets never reach the browser (AD-7): only `NEXT_PUBLIC_*` values are public,
+and they are public by nature (visible in every Sanity request).
 
-## Learn More
+## Layout
 
-To learn more about Next.js, take a look at the following resources:
+- `app/` — routes per spec slugs; `api/docent/health` proxies the agent probe
+- `components/` — design-system components (PascalCase, one `.module.css` each)
+- `lib/` — Sanity client, content fetchers, the one health-checked agent client
+- `styles/tokens.css` — design tokens (source: `../design-artifacts/D-Design-System/`)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+GROQ queries are imported from `../studio/lib/queries.ts` — the single
+definition both site and agent must use (AD-11). `turbopack.root` points at
+the repo root to allow that import.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Content updates
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Sanity publish → webhook → ISR revalidation (tag `content`); time-based
+1h revalidate as safety net. No redeploy needed for content changes.

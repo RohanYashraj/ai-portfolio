@@ -6,8 +6,8 @@
 
 ## Current
 
-**Phase:** 4 — UX Design: all 9 pages specified ✅; all 15 open questions resolved (2026-07-12)
-**Next:** [W] Visual Design (typefaces, palette, imagery) / [V] Validate Specs / Phase 5 build
+**Phase:** 5 — Agentic Development: Home + Selected Works built ✅ (2026-07-13, branch `feature/home-selected-works`)
+**Next:** [T] Acceptance Testing for 1.1/1.2 / next build unit: 2.1 The Archive / replace sample works in Studio
 
 **Backlog:**
 - [ ] Speaker one-pager PDF (bio + topics + photo) — post-launch (decision Q7)
@@ -17,8 +17,8 @@
 
 | Scenario | Page | Name | Status | Date |
 |----------|------|------|--------|------|
-| 01-elenas-three-minute-vetting | 1.1 | Home | building | 2026-07-12 |
-| 01-elenas-three-minute-vetting | 1.2 | Selected Works | building | 2026-07-12 |
+| 01-elenas-three-minute-vetting | 1.1 | Home | built | 2026-07-13 |
+| 01-elenas-three-minute-vetting | 1.2 | Selected Works | built | 2026-07-13 |
 | 01-elenas-three-minute-vetting | 1.3 | Speaking & Writing | specified | 2026-07-12 |
 | 01-elenas-three-minute-vetting | 1.4 | The Study | specified | 2026-07-12 |
 | 02-rahuls-55-second-proof-hunt | 2.1 | The Archive | specified | 2026-07-12 |
@@ -91,6 +91,15 @@
 
 **Artifact:** `_bmad-output/planning-artifacts/architecture/architecture-ai-portfolio-2026-07-12/ARCHITECTURE-SPINE.md` (+ .memlog.md, reviews/)
 **Stack:** Next.js 16.2 LTS on Vercel (SSG/ISR) · Sanity CMS (next-sanity ^13, no SanityLive) · FastAPI+Agno 2.6 sidecar on Cloud Run free tier · gemini-3.1-flash-lite · Resend. Monorepo web/ + agent/ + studio/. 12 ADs; reviewer gate (rubric, currency, adversary) passed with fixes applied — key additions: message envelope contract, Sanity-owned docent strings, schema-as-contract, single stat query, SSE end-to-end. Visual look signed off same day (Source Serif 4 + Inter + JetBrains Mono).
+
+### 2026-07-13 — Phase 5: Home + Selected Works Built (specs 1.1 + 1.2)
+
+**Agent:** Claude (WDS [D] Development, steps 01–05)
+**Branch:** `feature/home-selected-works` · **Plan/dialog:** `_bmad-output/implementation-artifacts/plan-home-selected-works.md`
+
+**Built:** Monorepo foundation (web/ Next.js 16.2 SSG + studio/ Sanity schemas + shared GROQ queries per AD-11), design tokens from the signed-off palette, six components (SiteHeader, SiteFooter, RoomTitle, StatBlock, PlacardCard, DocentLauncher), and the single scrolling page: hero with CMS-derived count-up stats + asymmetric placard wall. Sanity project `weju4mib` live, dev-seeded (sample works to replace). 20/20 acceptance criteria verified; production build passes, `/` static with 1h revalidate. Deviations documented (docent chip inert until 3.2 unit; zero-count stat guard; room links 404 until their units).
+
+**Next:** [T] Acceptance testing 1.1/1.2 → build 2.1 The Archive
 
 ## Key Decisions
 

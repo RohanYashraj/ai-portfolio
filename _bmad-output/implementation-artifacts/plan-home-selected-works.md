@@ -93,3 +93,47 @@
 - SSR stat values contain React text-node separators (`12<!-- -->+`) — displays correctly as "12+" with JS pending
 
 **Verified in browser:** hero + placards + JSON-LD Person in raw HTML payload (no-JS proof); fonts (Source Serif 4 / Inter / JetBrains Mono computed); light + dark themes incl. persistence; desktop nav ≥768px; mobile menu open/close; 3-across mobile stat strip; smooth-scroll cue; asymmetric wall with featured-first; placard hover accent. Reduced-motion paths are CSS-media-gated + matchMedia-checked (code-verified).
+
+---
+
+## Spec Deviations (Step 5, 2026-07-13)
+
+### DocentLauncher chip
+- **Spec said:** chip onClick → DocentPanel opens pre-seeded (1.1 `home-docent-launcher-suggestion`)
+- **Implementation does:** chip renders and is dismissible, but tapping it does nothing yet
+- **Reason:** DocentPanel is spec 3.2's build unit. The launcher is unreachable today anyway — it renders only after a successful agent health probe (AD-2), and no agent is deployed. Wire the panel in the 3.2 unit.
+
+### Stat-strip zero guard
+- **Spec said:** strip hidden when "CMS fetch fails" (1.1 Stats-unavailable state)
+- **Implementation does:** also hides the strip when careerStartYear is missing or papers/talks count is 0
+- **Reason:** "never zeros/placeholders" — a "0 research papers" stat would undermine the credibility hypothesis worse than no strip.
+
+### Link targets to unbuilt rooms
+- **Spec said:** stat/placard/nav clicks route to Archive, Speaking, About, Contact
+- **Implementation does:** correct hrefs; targets 404 until those page units are built
+- **Reason:** inter-unit dependency, not a defect. `/archive` (2.1) is the highest-leverage next unit — placards and two stats link to it.
+
+## PR Description (prepared)
+
+**Title:** Home + Selected Works: the scrolling gallery entrance (specs 1.1 + 1.2)
+
+**Summary:** First build unit of the rohanyashraj.com rebuild. Monorepo foundation per the Architecture Spine (web/ Next.js 16.2 SSG + studio/ Sanity schemas as content contract), plus the single scrolling page: entrance hero with CMS-derived count-up stats and the Selected Works placard wall. Static-first: the whole credibility proof is in the HTML payload.
+
+**Changes:**
+- `web/styles/tokens.css` — design tokens from D-Design-System, both themes
+- `studio/schemas/` — `work`, `siteSettings`, `docentSettings` (AD-1/9/10); `studio/lib/queries.ts` — the one GROQ definition set (AD-11); `studio/seed/seed-dev.ndjson` — dev seed (sample works, replace before launch)
+- `web/lib/` — Sanity CDN client (published perspective), content fetchers with hide-on-failure semantics, health-checked agent client (AD-2)
+- `web/components/` — SiteHeader, SiteFooter, RoomTitle, StatBlock, PlacardCard, DocentLauncher (+ ThemeToggle)
+- `web/app/page.tsx` — page assembly, JSON-LD Person, generateMetadata from CMS
+- `web/app/api/docent/health/route.ts` — agent liveness proxy (AD-7)
+
+**Testing:** `npm run dev` in web/ (needs `.env.local`, see web/README) → verify hero <1s, count-up on view, wall order (pinned → newest), theme toggle persistence, mobile menu at <768px, `curl localhost:3000 | grep "Dr. Rohan"` for the no-JS proof. `npm run build` passes; `/` prerenders static, revalidate 1h.
+
+**Acceptance criteria:** 20/20 verified (see checklist above). No test suite existed at baseline; none added — browser-based acceptance per spec, unit tests deferred until logic warrants.
+
+## Recommended Next Steps
+
+1. **[T] Acceptance Testing** against specs 1.1/1.2 for an independent pass
+2. **Replace sample works** in Studio with real pieces (and verify LinkedIn URL)
+3. **Next build unit: 2.1 The Archive** — most inbound links from this page point there
+4. Later: Sanity Studio v4→v7 upgrade; Sanity webhook → `/api/revalidate` when deploying to Vercel
