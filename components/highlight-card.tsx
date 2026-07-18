@@ -1,12 +1,14 @@
-import Link from "next/link";
+import { TrackedLink } from "./tracked-link";
 import { SmartImage } from "./smart-image";
 import { categoryLabel, formatMonthYear } from "@/lib/utils";
 import type { Highlight } from "@/sanity/lib/types";
 
 export function HighlightCard({ highlight }: { highlight: Highlight }) {
   return (
-    <Link
+    <TrackedLink
       href={`/highlights/${highlight.slug}`}
+      eventName="highlight_opened"
+      eventProperties={{ highlight_category: highlight.category }}
       className="card group flex h-full flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:border-indigo/40"
     >
       <div className="relative aspect-[3/2] overflow-hidden border-b-[1.5px] border-outline bg-indigo-soft">
@@ -40,6 +42,6 @@ export function HighlightCard({ highlight }: { highlight: Highlight }) {
           {highlight.summary}
         </p>
       </div>
-    </Link>
+    </TrackedLink>
   );
 }

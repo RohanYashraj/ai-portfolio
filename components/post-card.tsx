@@ -1,11 +1,13 @@
-import Link from "next/link";
+import { TrackedLink } from "./tracked-link";
 import { formatMonthYear } from "@/lib/utils";
 import type { Post } from "@/sanity/lib/types";
 
 export function PostCard({ post }: { post: Post }) {
   return (
-    <Link
+    <TrackedLink
       href={`/blog/${post.slug}`}
+      eventName="blog_post_opened"
+      eventProperties={{ has_tags: Boolean(post.tags?.length) }}
       className="group block border-t border-line py-8 transition-colors first:border-t-0 hover:bg-wash/40"
     >
       <div className="grid gap-3 md:grid-cols-[140px_1fr]">
@@ -36,6 +38,6 @@ export function PostCard({ post }: { post: Post }) {
           )}
         </div>
       </div>
-    </Link>
+    </TrackedLink>
   );
 }

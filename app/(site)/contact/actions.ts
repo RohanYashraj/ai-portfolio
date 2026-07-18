@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { z } from "zod";
 import { Resend } from "resend";
 import { rateLimit } from "@/lib/rate-limit";
+import { createPostHogClient } from "@/lib/posthog-server";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Please add your name.").max(100),
@@ -27,6 +28,21 @@ const CONTACT_EMAIL = process.env.CONTACT_TO_EMAIL || "rohanyashraj@gmail.com";
 // The template should reference these variables: name, email, subject, message.
 const ACK_TEMPLATE_ID =
   process.env.RESEND_ACK_TEMPLATE_ID || "5d5d3029-f1b1-46bf-93a8-37edc63ad2cd";
+
+async function captureContactEvent(
+  event: "contact_form_submitted" | "contact_form_failed",
+  outcome: "delivered" | "rate_limited" | "email_unconfigured" | "delivery_error",
+  error?: unknown,
+) {
+  const posthog = createPostHogClient();
+  posthog.capture({
+    distinctId: "portfolio_contact_form",
+    event,
+    properties: { outcome },
+  });
+  if (error) posthog.captureException(error, "portfolio_contact_form");
+  await posthog.shutdown();
+}
 
 function escapeHtml(s: string): string {
   return s.replace(/[<>&"']/g, (c) =>
@@ -99,6 +115,7 @@ export async function submitContact(
     "unknown";
   const { ok } = rateLimit(`contact:${ip}`);
   if (!ok) {
+    await captureContactEvent("contact_form_failed", "rate_limited");
     return {
       status: "error",
       message: "Too many messages from this address. Please try again later.",
@@ -110,6 +127,7 @@ export async function submitContact(
   const from = process.env.CONTACT_FROM_EMAIL;
 
   if (!apiKey || !from) {
+    await captureContactEvent("contact_form_failed", "email_unconfigured");
     return {
       status: "error",
       message: `The form isn't connected to email yet. Please write to ${CONTACT_EMAIL} directly.`,
@@ -141,12 +159,14 @@ export async function submitContact(
       },
     });
 
+    await captureContactEvent("contact_form_submitted", "delivered");
     return {
       status: "success",
       message: "Thanks — your message is on its way. I'll reply soon.",
     };
   } catch (err) {
     console.error("Resend error:", err);
+    await captureContactEvent("contact_form_failed", "delivery_error", err);
     return {
       status: "error",
       message: `Something went wrong sending your message. Please write to ${CONTACT_EMAIL} directly.`,

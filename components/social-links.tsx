@@ -1,3 +1,6 @@
+"use client";
+
+import posthog from "posthog-js";
 import type { SocialLink } from "@/sanity/lib/types";
 
 const LABELS: Record<SocialLink["platform"], string> = {
@@ -94,6 +97,7 @@ export function SocialLinks({
               target={s.platform === "email" ? undefined : "_blank"}
               rel="noopener noreferrer"
               className="font-mono text-xs uppercase tracking-[0.14em] text-muted transition-colors hover:text-indigo"
+              onClick={() => posthog.capture("social_link_clicked", { platform: s.platform, variant: "labels" })}
             >
               {LABELS[s.platform]}
             </a>
@@ -113,6 +117,7 @@ export function SocialLinks({
             rel="noopener noreferrer"
             aria-label={LABELS[s.platform]}
             className="grid h-11 w-11 place-items-center rounded-full border border-line text-muted transition-colors hover:border-indigo hover:text-indigo"
+            onClick={() => posthog.capture("social_link_clicked", { platform: s.platform, variant: "icons" })}
           >
             <Icon platform={s.platform} />
           </a>
