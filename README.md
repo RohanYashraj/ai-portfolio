@@ -1,9 +1,10 @@
 # Dr Rohan Yashraj Gupta — Portfolio
 
-A CMS-driven personal portfolio: Next.js 15 (App Router, RSC, TypeScript strict),
-Tailwind v4, Framer Motion, Sanity v3 (embedded Studio + live editing), and Resend
-for the contact form. Design system: **Ledger & Indigo** — a flat, precise,
-worksheet-grid aesthetic with an actuarial curve as the hero signature.
+A CMS-driven personal portfolio: Next.js 16 (App Router, RSC, TypeScript strict,
+Turbopack), Tailwind v4, GSAP (hero orchestration, scroll reveals, count-ups),
+Sanity v6 (embedded Studio + live editing), and Resend for the contact form.
+Design system: **Paper & Ultramarine** — flat cream paper, ultramarine-blue accent,
+and bold condensed poster type (Anton), with a ✦ sparkle and marquee motif.
 
 Everything visible on the site is edited in Sanity — no code changes needed for content.
 
@@ -64,8 +65,8 @@ Scripts:
 Go to **`/studio`** (also linked in the site footer) and sign in with your Sanity
 account.
 
-- **Site settings** — hero copy, profile image, CTAs, hero curve shape, nav links,
-  social links, resume PDF, default SEO. *(Singleton — edit, don't duplicate.)*
+- **Site settings** — hero greeting, statement, profile image, CTAs, marquee items,
+  nav links, social links, resume PDF, default SEO. *(Singleton — edit, don't duplicate.)*
 - **Author** — name, credentials, role, bio, photo, profile URLs (for SEO).
 - **Stats** — the "At a glance" numbers on the home page (animated count-up).
 - **Highlights** — cards on `/highlights`; set **Featured** to surface on the home
@@ -77,6 +78,24 @@ account.
 
 **Live editing:** open the **Presentation** tool in the Studio to edit content
 side-by-side with a live preview of the site.
+
+### Image sizes
+
+Images are served through the Sanity CDN, which crops and compresses them per
+device automatically — so **upload large and let the CDN scale down**. Every image
+field has a **hotspot** (drag the focus point in the Studio) so off-ratio uploads
+still crop sensibly, but matching the target aspect ratio avoids surprises.
+
+| Where | Aspect ratio | Recommended upload | Notes |
+|---|---|---|---|
+| **Highlight / Blog cover** | **3 : 2 (landscape)** | **1600 × 1067 px** (min 1200 × 800) | Rendered at up to 768 px wide, so ~1600 px covers retina. Displayed as `object-cover` — keep the subject near the hotspot. |
+| **Highlight gallery** | 3 : 2 | 1600 × 1067 px | Same crop as covers. |
+| **Profile photo** | 1 : 1 (square) | 1000 × 1000 px | Shown in the dashed hero ring; a centered head-and-shoulders crop works best. |
+| **Author photo / OG** | 1 : 1 / auto | 1200 px on the long edge | Used for JSON-LD and social share cards. |
+
+Keep source files under ~2–3 MB (JPG or PNG); the CDN handles final optimization
+and format conversion. **The highlight cover is the one to get right — 3:2, ~1600 px
+wide** — since it appears both on the cards grid and at the top of each detail page.
 
 The seed content uses real facts plus clearly marked `[placeholders]`
 (e.g. `[University]`, `[Paper title 1]`) — replace those as details are confirmed.
@@ -91,12 +110,12 @@ update them to the real numbers.
 app/(site)/            Public pages (home, highlights, resume, blog, contact)
 app/studio/            Embedded Sanity Studio
 app/api/               og image, revalidate webhook, draft-mode
-components/            UI (hero curve, cards, portable text, forms, chrome)
+components/            UI (hero reveal, marquee, cards, portable text, forms, chrome)
 sanity/schemaTypes/    Document + object schemas
 sanity/lib/            client, live fetch, queries, image, fallback content, types
 lib/                   utils, reading-time, rate-limit, site config
 scripts/               placeholder + seed generators
 ```
 
-Design tokens live in `app/globals.css` (`--paper`, `--ink`, `--indigo`, …), themed
-for light/dark via `data-theme`.
+Design tokens live in `app/globals.css` (`--paper`, `--ink`, `--indigo`, `--outline`, …),
+themed for light/dark via `data-theme`. The favicon is `app/icon.svg`.
