@@ -1,0 +1,44 @@
+{
+  "name": "ai-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "seed:export": "node scripts/export-seed.ts",
+    "seed:import": "sanity dataset import sanity/seed.ndjson production",
+    "placeholders": "node scripts/gen-placeholders.mjs"
+  },
+  "dependencies": {
+    "@portabletext/react": "^6.2.0",
+    "@sanity/code-input": "^4.1.4",
+    "@sanity/icons": "^5.1.0",
+    "@sanity/image-url": "^1.2.0",
+    "@sanity/vision": "^3.99.0",
+    "framer-motion": "^12.42.2",
+    "next": "15.5.20",
+    "next-sanity": "^9.12.3",
+    "next-themes": "^0.4.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "resend": "^6.17.2",
+    "sanity": "^3.99.0",
+    "styled-components": "^6.4.3",
+    "sugar-high": "^1.2.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.6",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.20",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
