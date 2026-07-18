@@ -1,26 +1,44 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { animate, useInView, useReducedMotion } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
 type Props = { value: number; suffix?: string; durationMs?: number };
 
-/** Count up to `value` once in view. Reduced-motion shows the final value. */
-export function CountUp({ value, suffix = "", durationMs = 1100 }: Props) {
+// Count up to `value` when scrolled into view (GSAP tween). Reduced-motion shows
+// the final value immediately.
+export function CountUp({ value, suffix = "", durationMs = 1200 }: Props) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-  const reduce = useReducedMotion();
-  const [display, setDisplay] = useState(reduce ? value : 0);
+  const [display, setDisplay] = useState(0);
 
+  useGSAP(
+    () => {
+      gsap.registerPlugin(ScrollTrigger);
+      const el = ref.current;
+      if (!el) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        setDisplay(value);
+        return;
+      }
+      const counter = { v: 0 };
+      gsap.to(counter, {
+        v: value,
+        duration: durationMs / 1000,
+        ease: "power2.out",
+        scrollTrigger: { trigger: el, start: "top 92%", once: true },
+        onUpdate: () => setDisplay(Math.round(counter.v)),
+      });
+    },
+    { scope: ref, dependencies: [value] },
+  );
+
+  // Failsafe: always land on the real value even if the tween is interrupted.
   useEffect(() => {
-    if (!inView || reduce) return;
-    const controls = animate(0, value, {
-      duration: durationMs / 1000,
-      ease: [0.22, 1, 0.36, 1],
-      onUpdate: (v) => setDisplay(Math.round(v)),
-    });
-    return () => controls.stop();
-  }, [inView, reduce, value, durationMs]);
+    const t = window.setTimeout(() => setDisplay(value), durationMs + 1200);
+    return () => window.clearTimeout(t);
+  }, [value, durationMs]);
 
   return (
     <span ref={ref} className="tnum">

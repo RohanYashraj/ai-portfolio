@@ -1,11 +1,9 @@
 import { defineField, defineType } from "sanity";
-import { RocketIcon } from "@sanity/icons";
 
 export const milestone = defineType({
   name: "milestone",
   title: "Career milestone",
   type: "document",
-  icon: RocketIcon,
   fields: [
     defineField({
       name: "title",

@@ -45,6 +45,10 @@ function Icon({ mode }: { mode: Mode }) {
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  // Intentional: flip a flag after hydration so server and client first render
+  // agree (avoids a theme hydration mismatch). This is the canonical next-themes
+  // pattern; the set-state-in-effect heuristic doesn't apply here.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
 
   // Before mount, assume the default (system) so server and client agree.

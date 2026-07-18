@@ -1,4 +1,5 @@
 import { isSanityConfigured } from "../env";
+import { client } from "./client";
 import { sanityFetch } from "./live";
 import type {
   Author,
@@ -97,9 +98,29 @@ export async function getHighlight(slug: string): Promise<Highlight | null> {
   );
 }
 
+// Slug lists power generateStaticParams (build time, no request) + sitemap, so
+// they must NOT use the live fetch (which reads draftMode). Use the plain
+// published client with stega disabled.
+async function fetchSlugs(type: string, fallback: string[]): Promise<string[]> {
+  if (!isSanityConfigured) return fallback;
+  try {
+    return await client
+      .withConfig({ stega: false })
+      .fetch<string[]>(
+        `*[_type == $type && defined(slug.current)].slug.current`,
+        { type },
+      );
+  } catch (err) {
+    console.error("Slug fetch failed, using fallback:", err);
+    return fallback;
+  }
+}
+
 export async function getHighlightSlugs(): Promise<string[]> {
-  const all = await getHighlights();
-  return all.map((h) => h.slug);
+  return fetchSlugs(
+    "highlight",
+    fallbackHighlights.map((h) => h.slug),
+  );
 }
 
 const POST_CARD = `{
@@ -127,8 +148,10 @@ export async function getPost(slug: string): Promise<Post | null> {
 }
 
 export async function getPostSlugs(): Promise<string[]> {
-  const all = await getPosts();
-  return all.map((p) => p.slug);
+  return fetchSlugs(
+    "post",
+    fallbackPosts.map((p) => p.slug),
+  );
 }
 
 export async function getResume(): Promise<ResumeData> {

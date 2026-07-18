@@ -1,11 +1,9 @@
 import { defineField, defineType } from "sanity";
-import { SearchIcon } from "@sanity/icons";
 
 export const seo = defineType({
   name: "seo",
   title: "SEO",
   type: "object",
-  icon: SearchIcon,
   options: { collapsible: true, collapsed: true },
   fields: [
     defineField({

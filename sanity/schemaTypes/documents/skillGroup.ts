@@ -1,11 +1,9 @@
 import { defineField, defineType } from "sanity";
-import { TagIcon } from "@sanity/icons";
 
 export const skillGroup = defineType({
   name: "skillGroup",
   title: "Skill group",
   type: "document",
-  icon: TagIcon,
   fields: [
     defineField({
       name: "groupName",

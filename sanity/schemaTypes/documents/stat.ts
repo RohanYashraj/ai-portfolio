@@ -1,11 +1,9 @@
 import { defineField, defineType } from "sanity";
-import { BarChartIcon } from "@sanity/icons";
 
 export const stat = defineType({
   name: "stat",
   title: "Stat",
   type: "document",
-  icon: BarChartIcon,
   fields: [
     defineField({
       name: "label",
