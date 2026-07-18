@@ -6,6 +6,8 @@ import { SanityLive } from "@/sanity/lib/live";
 import { isSanityConfigured } from "@/sanity/env";
 import { Providers } from "@/components/theme-provider";
 import { siteName, siteUrl } from "@/lib/site";
+import { ogImage, siteDescription, siteKeywords } from "@/lib/seo";
+import { Analytics } from "@vercel/analytics/next"
 import "./globals.css";
 
 // Anton — condensed heavy poster type (marquee, big display, section labels).
@@ -34,15 +36,41 @@ export const metadata: Metadata = {
     default: `${siteName} — Actuary, Researcher, Educator`,
     template: `%s · ${siteName}`,
   },
-  description:
-    "Actuarial Associate Principal at Accenture, Adjunct Professor at SSSIA, and holder of India's first PhD in Actuarial Science.",
+  description: siteDescription,
+  keywords: siteKeywords,
+  applicationName: siteName,
+  authors: [{ name: siteName, url: siteUrl }],
+  creator: siteName,
+  publisher: siteName,
+  category: "Actuarial Science",
+  alternates: { canonical: "/" },
+  formatDetection: { email: false, address: false, telephone: false },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
     type: "website",
     siteName,
+    title: `${siteName} — Actuary, Researcher, Educator`,
+    description: siteDescription,
     url: siteUrl,
-    images: [{ url: "/api/og", width: 1200, height: 630 }],
+    locale: "en_US",
+    images: [ogImage],
   },
-  twitter: { card: "summary_large_image", images: ["/api/og"] },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteName} — Actuary, Researcher, Educator`,
+    description: siteDescription,
+    images: [ogImage.url],
+  },
 };
 
 export default async function RootLayout({
@@ -56,6 +84,7 @@ export default async function RootLayout({
       className={`${anton.variable} ${archivo.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <Analytics />
         <Providers>
           {children}
           {isSanityConfigured && <SanityLive />}
