@@ -6,7 +6,16 @@ import { getPosts } from "@/sanity/lib/queries";
 export const metadata: Metadata = {
   title: "Blog",
   description: "Notes on actuarial science, AI, and teaching.",
-  alternates: { types: { "application/rss+xml": "/rss.xml" } },
+  alternates: {
+    canonical: "/blog",
+    types: { "application/rss+xml": "/rss.xml" },
+  },
+  openGraph: {
+    title: "Blog · Dr Rohan Yashraj Gupta",
+    description: "Notes on actuarial science, AI, and teaching.",
+    url: "/blog",
+    type: "website",
+  },
 };
 
 export default async function BlogPage() {

@@ -3,8 +3,11 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { RichText } from "@/components/portable-text";
 import { SmartImage } from "@/components/smart-image";
+import { JsonLd } from "@/components/json-ld";
 import { getHighlight, getHighlightSlugs } from "@/sanity/lib/queries";
 import { categoryLabel, formatFullDate } from "@/lib/utils";
+import { breadcrumbLd, highlightLd } from "@/lib/seo";
+import { resolveImageUrl } from "@/sanity/lib/image";
 
 export async function generateStaticParams() {
   const slugs = await getHighlightSlugs();
@@ -19,13 +22,23 @@ export async function generateMetadata({
   const { slug } = await params;
   const highlight = await getHighlight(slug);
   if (!highlight) return { title: "Not found" };
+  const cover = resolveImageUrl(highlight.coverImage, { width: 1200, height: 630 });
   return {
     title: highlight.seo?.metaTitle ?? highlight.title,
     description: highlight.seo?.metaDescription ?? highlight.summary,
+    alternates: { canonical: `/highlights/${slug}` },
     openGraph: {
       title: highlight.title,
       description: highlight.summary,
       type: "article",
+      url: `/highlights/${slug}`,
+      publishedTime: highlight.date,
+      ...(cover ? { images: [{ url: cover }] } : {}),
+    },
+    twitter: {
+      title: highlight.title,
+      description: highlight.summary,
+      ...(cover ? { images: [cover] } : {}),
     },
   };
 }
@@ -41,6 +54,15 @@ export default async function HighlightPage({
 
   return (
     <article className="mx-auto max-w-3xl px-5 py-14 sm:px-8 sm:py-20">
+      <JsonLd data={highlightLd(highlight)} />
+      <JsonLd
+        data={breadcrumbLd([
+          { name: "Home", path: "/" },
+          { name: "Highlights", path: "/highlights" },
+          { name: highlight.title, path: `/highlights/${highlight.slug}` },
+        ])}
+      />
+
       <Link
         href="/highlights"
         className="eyebrow inline-flex items-center gap-1.5 hover:text-indigo"

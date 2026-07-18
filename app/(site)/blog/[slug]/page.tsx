@@ -7,7 +7,9 @@ import { JsonLd } from "@/components/json-ld";
 import { getPost, getPostSlugs } from "@/sanity/lib/queries";
 import { readingTime } from "@/lib/reading-time";
 import { formatFullDate } from "@/lib/utils";
-import { siteUrl } from "@/lib/site";
+import { siteName } from "@/lib/site";
+import { blogPostingLd, breadcrumbLd } from "@/lib/seo";
+import { resolveImageUrl } from "@/sanity/lib/image";
 
 export async function generateStaticParams() {
   const slugs = await getPostSlugs();
@@ -22,14 +24,26 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post) return { title: "Not found" };
+  const cover = resolveImageUrl(post.coverImage, { width: 1200, height: 630 });
   return {
     title: post.seo?.metaTitle ?? post.title,
     description: post.seo?.metaDescription ?? post.excerpt,
+    alternates: { canonical: `/blog/${slug}` },
+    authors: [{ name: siteName }],
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: "article",
+      url: `/blog/${slug}`,
       publishedTime: post.publishedAt,
+      authors: [siteName],
+      ...(post.tags?.length ? { tags: post.tags } : {}),
+      ...(cover ? { images: [{ url: cover }] } : {}),
+    },
+    twitter: {
+      title: post.title,
+      description: post.excerpt,
+      ...(cover ? { images: [cover] } : {}),
     },
   };
 }
@@ -44,19 +58,17 @@ export default async function PostPage({
   if (!post) notFound();
 
   const minutes = readingTime(post.body);
-  const articleLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: post.title,
-    description: post.excerpt,
-    datePublished: post.publishedAt,
-    url: `${siteUrl}/blog/${post.slug}`,
-    author: { "@type": "Person", name: "Dr Rohan Yashraj Gupta" },
-  };
 
   return (
     <article className="mx-auto max-w-3xl px-5 py-14 sm:px-8 sm:py-20">
-      <JsonLd data={articleLd} />
+      <JsonLd data={blogPostingLd(post)} />
+      <JsonLd
+        data={breadcrumbLd([
+          { name: "Home", path: "/" },
+          { name: "Blog", path: "/blog" },
+          { name: post.title, path: `/blog/${post.slug}` },
+        ])}
+      />
 
       <Link
         href="/blog"

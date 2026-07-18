@@ -7,6 +7,14 @@ export const metadata: Metadata = {
   title: "Resume",
   description:
     "Education, work experience, skills, certifications, and publications.",
+  alternates: { canonical: "/resume" },
+  openGraph: {
+    title: "Resume · Dr Rohan Yashraj Gupta",
+    description:
+      "Education, work experience, skills, certifications, and publications.",
+    url: "/resume",
+    type: "profile",
+  },
 };
 
 const PUB_LABELS: Record<Publication["type"], string> = {

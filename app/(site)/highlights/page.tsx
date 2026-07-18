@@ -7,6 +7,14 @@ export const metadata: Metadata = {
   title: "Highlights",
   description:
     "Selected work across research, teaching, publications, and client engagements.",
+  alternates: { canonical: "/highlights" },
+  openGraph: {
+    title: "Highlights · Dr Rohan Yashraj Gupta",
+    description:
+      "Selected work across research, teaching, publications, and client engagements.",
+    url: "/highlights",
+    type: "website",
+  },
 };
 
 export default async function HighlightsPage() {

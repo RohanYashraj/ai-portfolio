@@ -6,6 +6,13 @@ import { getAuthor } from "@/sanity/lib/queries";
 export const metadata: Metadata = {
   title: "Contact",
   description: "Get in touch about actuarial work, teaching, or writing.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact · Dr Rohan Yashraj Gupta",
+    description: "Get in touch about actuarial work, teaching, or writing.",
+    url: "/contact",
+    type: "website",
+  },
 };
 
 export default async function ContactPage() {
