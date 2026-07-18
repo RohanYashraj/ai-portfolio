@@ -104,12 +104,41 @@ update them to the real numbers.
 
 ---
 
+## SEO & answer-engine (AEO) surfaces
+
+Search engines and LLM answer engines are fed from a few places:
+
+- **Metadata** — every route sets a canonical URL, title, description, and Open
+  Graph / Twitter tags via the Next.js Metadata API. Sitewide defaults live in
+  `app/layout.tsx`; per-page overrides live in each page's `metadata` /
+  `generateMetadata`. Shared strings and the OG image live in `lib/seo.ts`.
+- **Social share image** — the single card is **`public/opengraph.png`**
+  (referenced as `/opengraph.png`). It is **1254 × 1254 (square)** — social
+  platforms center-crop it, so keep the subject centered. Blog posts and
+  highlights automatically use their **cover image** as the share card instead,
+  falling back to this default. To change the default, replace the file
+  (keep it square, ≥1200 px, and update the dimensions in `lib/seo.ts`).
+- **Structured data (JSON-LD)** — `lib/seo.ts` builds one `Person` + `WebSite`
+  identity graph (emitted sitewide from `app/(site)/layout.tsx`), plus
+  `ProfilePage` (home), `BlogPosting` + `BreadcrumbList` (posts), and `Article`
+  + `BreadcrumbList` (highlights). All nodes reference the one Person by `@id`.
+  The Person's `jobTitle`/`worksFor` are parsed from the author's role in Sanity
+  (`Role, Org` / `Role @ Org` / `Role at Org`), so keep that field tidy.
+- **`/llms.txt`** — a plain-language, link-first summary of the site for LLMs
+  (see [llmstxt.org](https://llmstxt.org)), generated from the same CMS content.
+- **`/sitemap.xml`**, **`/robots.txt`**, and **`/rss.xml`** are generated from
+  content and the `NEXT_PUBLIC_SITE_URL` env var — set it for correct absolute
+  URLs in production.
+
+---
+
 ## Project structure
 
 ```
 app/(site)/            Public pages (home, highlights, resume, blog, contact)
 app/studio/            Embedded Sanity Studio
-app/api/               og image, revalidate webhook, draft-mode
+app/api/               revalidate webhook, draft-mode
+app/                   sitemap.ts, robots.ts, rss.xml, llms.txt, icon.svg
 components/            UI (hero reveal, marquee, cards, portable text, forms, chrome)
 sanity/schemaTypes/    Document + object schemas
 sanity/lib/            client, live fetch, queries, image, fallback content, types
