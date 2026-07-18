@@ -1,11 +1,9 @@
 import { defineField, defineType } from "sanity";
-import { TokenIcon } from "@sanity/icons";
 
 export const credential = defineType({
   name: "credential",
   title: "Certification / Fellowship",
   type: "document",
-  icon: TokenIcon,
   fields: [
     defineField({
       name: "name",

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { draftMode } from "next/headers";
 import { Anton, Archivo, IBM_Plex_Mono } from "next/font/google";
-import { VisualEditing } from "next-sanity";
+import { VisualEditing } from "next-sanity/visual-editing";
 import { SanityLive } from "@/sanity/lib/live";
 import { isSanityConfigured } from "@/sanity/env";
 import { Providers } from "@/components/theme-provider";

@@ -25,13 +25,12 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="border-t border-line py-10 first:border-t-0">
-      <div className="grid gap-6 md:grid-cols-[180px_1fr]">
-        <h2 className="font-mono text-xs uppercase tracking-[0.14em] text-slate md:pt-1">
-          {title}
-        </h2>
-        <div>{children}</div>
-      </div>
+    <section id={id} className="border-t-[1.5px] border-outline py-12 first:border-t-0">
+      <h2 className="section-heading mb-8 text-4xl sm:text-5xl">
+        {title}{" "}
+        <span className="sparkle align-middle text-xl sm:text-2xl">✦</span>
+      </h2>
+      <div>{children}</div>
     </section>
   );
 }
@@ -44,14 +43,18 @@ export default async function ResumePage() {
 
   return (
     <>
-      <PageHeader eyebrow="Curriculum vitae" title="Resume" />
+      <PageHeader
+        eyebrow="Curriculum vitae"
+        title="Resume"
+        intro="Education, experience, credentials, and publications — the full record."
+      />
 
       <div className="mx-auto max-w-4xl px-5 sm:px-8">
         {settings.resumePdfUrl && (
           <div className="flex justify-end py-6">
             <a
               href={settings.resumePdfUrl}
-              className="inline-flex items-center gap-2 rounded-md border border-line px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-wash"
+              className="inline-flex items-center gap-2 rounded-full border-[1.5px] border-outline px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-indigo hover:text-indigo"
               download
             >
               Download PDF ↓
@@ -134,7 +137,7 @@ export default async function ResumePage() {
                   {g.skills.map((s) => (
                     <li
                       key={s}
-                      className="rounded-full border border-line px-3 py-1 text-sm text-slate"
+                      className="rounded-full border-[1.5px] border-outline px-3.5 py-1 text-sm text-ink"
                     >
                       {s}
                     </li>

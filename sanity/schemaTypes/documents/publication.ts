@@ -1,5 +1,4 @@
 import { defineField, defineType } from "sanity";
-import { BookIcon } from "@sanity/icons";
 
 export const PUBLICATION_TYPES = [
   { title: "Paper", value: "paper" },
@@ -11,7 +10,6 @@ export const publication = defineType({
   name: "publication",
   title: "Publication / Presentation",
   type: "document",
-  icon: BookIcon,
   fields: [
     defineField({
       name: "title",

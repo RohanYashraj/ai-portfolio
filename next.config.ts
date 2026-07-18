@@ -11,9 +11,6 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "cdn.sanity.io" },
     ],
   },
-  // Sanity Studio bundles some packages that ship their own source maps.
-  typescript: { ignoreBuildErrors: false },
-  eslint: { ignoreDuringBuilds: false },
 };
 
 export default nextConfig;

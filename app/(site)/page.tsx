@@ -5,6 +5,7 @@ import { PortraitRing } from "@/components/portrait-ring";
 import { Marquee } from "@/components/marquee";
 import { SocialLinks } from "@/components/social-links";
 import { Reveal } from "@/components/reveal";
+import { HeroReveal } from "@/components/hero-reveal";
 import { JsonLd } from "@/components/json-ld";
 import { imageAlt } from "@/sanity/lib/image";
 import {
@@ -50,7 +51,7 @@ export default async function HomePage() {
           <div className="mx-auto w-full max-w-6xl px-5 py-12 sm:px-8 lg:py-0">
           <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8">
             {/* left */}
-            <div>
+            <HeroReveal>
               <p className="font-display text-2xl font-medium text-muted sm:text-3xl">
                 {greeting}
               </p>
@@ -111,7 +112,7 @@ export default async function HomePage() {
                   </div>
                 ))}
               </dl>
-            </div>
+            </HeroReveal>
 
             {/* right */}
             <div className="flex w-full justify-center lg:justify-end">
