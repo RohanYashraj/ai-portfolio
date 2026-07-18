@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TrackedLink } from "@/components/tracked-link";
 import { CountUp } from "@/components/count-up";
 import { HighlightCard } from "@/components/highlight-card";
 import { PortraitRing } from "@/components/portrait-ring";
@@ -14,7 +15,7 @@ import {
   getSiteSettings,
   getStats,
 } from "@/sanity/lib/queries";
-import { siteUrl } from "@/lib/site";
+import { personId } from "@/lib/seo";
 
 export default async function HomePage() {
   const [settings, author, stats, highlights] = await Promise.all([
@@ -30,20 +31,18 @@ export default async function HomePage() {
     ? settings.marqueeItems
     : ["Rohan Yashraj Gupta", "Actuary", "Researcher", "Educator", "Portfolio", "2026"];
 
-  const personLd = {
+  // The home page IS the profile page; its main entity is the sitewide Person
+  // node (emitted once in the site layout), referenced here by @id.
+  const profilePageLd = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    name: author.name,
-    jobTitle: author.roleTitle,
-    email: author.email,
-    url: siteUrl,
-    sameAs: author.sameAs,
-    honorificSuffix: author.credentials,
+    "@type": "ProfilePage",
+    name: `${author.name} — Actuary, Researcher, Educator`,
+    mainEntity: { "@id": personId },
   };
 
   return (
     <>
-      <JsonLd data={personLd} />
+      <JsonLd data={profilePageLd} />
 
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section className="relative flex flex-col overflow-hidden lg:min-h-[calc(100vh-4.5rem)]">
@@ -80,24 +79,28 @@ export default async function HomePage() {
 
               {/* CTAs + social */}
               <div className="mt-7 flex flex-wrap items-center gap-3">
-                <Link
+                <TrackedLink
                   href="/contact"
+                  eventName="primary_cta_clicked"
+                  eventProperties={{ placement: "homepage_hero" }}
                   className="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold shadow-[var(--shadow-card)] transition-transform hover:-translate-y-0.5"
                 >
                   {settings.primaryCtaLabel}
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden>
                     <path d="M4 12h15m-6-6 6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                </Link>
-                <Link
+                </TrackedLink>
+                <TrackedLink
                   href="/resume"
+                  eventName="resume_cta_clicked"
+                  eventProperties={{ placement: "homepage_hero" }}
                   className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-6 py-3 text-sm font-semibold text-ink transition-colors hover:border-indigo hover:text-indigo"
                 >
                   {settings.secondaryCtaLabel}
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden>
                     <path d="M12 4v11m0 0 4-4m-4 4-4-4M5 19h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                </Link>
+                </TrackedLink>
                 <SocialLinks links={settings.socialLinks} className="ml-1" />
               </div>
 
