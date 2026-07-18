@@ -8,7 +8,7 @@ export type ContentImage =
 export type LinkItem = { label: string; url: string };
 
 export type SocialLink = {
-  platform: "linkedin" | "email" | "scholar" | "sssia" | "other";
+  platform: "linkedin" | "github" | "email" | "scholar" | "sssia" | "other";
   url: string;
 };
 
@@ -21,7 +21,6 @@ export type Seo = {
 export type SiteSettings = {
   siteTitle: string;
   tagline?: string;
-  heroEyebrow?: string;
   heroGreeting?: string;
   heroStatement: string;
   profileImage?: ContentImage;

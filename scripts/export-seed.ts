@@ -33,7 +33,6 @@ docs.push({
   _type: "siteSettings",
   siteTitle: fallbackSiteSettings.siteTitle,
   tagline: fallbackSiteSettings.tagline,
-  heroEyebrow: fallbackSiteSettings.heroEyebrow,
   heroGreeting: fallbackSiteSettings.heroGreeting,
   heroStatement: fallbackSiteSettings.heroStatement,
   marqueeItems: fallbackSiteSettings.marqueeItems,

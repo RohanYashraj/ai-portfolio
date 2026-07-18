@@ -56,7 +56,6 @@ const img = (src: string, alt: string) => ({ src, alt });
 export const fallbackSiteSettings: SiteSettings = {
   siteTitle: "Rohan Yashraj Gupta",
   tagline: "Actuary · Researcher · Educator",
-  heroEyebrow: "Actuarial science · AI · Teaching",
   heroGreeting: "Hello, I'm",
   heroStatement:
     "I price risk, detect insurance fraud with machine learning, and teach the next generation of actuaries.",

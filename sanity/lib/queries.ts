@@ -39,7 +39,7 @@ const IMAGE = `{..., "alt": alt}`;
 export async function getSiteSettings(): Promise<SiteSettings> {
   return fetchOr<SiteSettings>(
     `*[_type == "siteSettings"][0]{
-      siteTitle, tagline, heroEyebrow, heroGreeting, heroStatement,
+      siteTitle, tagline, heroGreeting, heroStatement,
       profileImage${IMAGE}, marqueeItems, primaryCtaLabel, secondaryCtaLabel,
       "resumePdfUrl": resumePdf.asset->url,
       navLinks[]{label, url},

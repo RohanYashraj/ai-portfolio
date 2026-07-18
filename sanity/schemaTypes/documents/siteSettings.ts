@@ -26,13 +26,6 @@ export const siteSettings = defineType({
       group: "hero",
     }),
     defineField({
-      name: "heroEyebrow",
-      title: "Hero eyebrow",
-      type: "string",
-      description: "Small label above the name, e.g. domains you work in.",
-      group: "hero",
-    }),
-    defineField({
       name: "heroGreeting",
       title: "Hero greeting",
       type: "string",
@@ -127,6 +120,7 @@ export const siteSettings = defineType({
               options: {
                 list: [
                   { title: "LinkedIn", value: "linkedin" },
+                  { title: "GitHub", value: "github" },
                   { title: "Email", value: "email" },
                   { title: "Google Scholar", value: "scholar" },
                   { title: "SSSIA", value: "sssia" },

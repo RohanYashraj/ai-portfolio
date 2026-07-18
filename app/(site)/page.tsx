@@ -51,9 +51,6 @@ export default async function HomePage() {
           <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8">
             {/* left */}
             <div>
-              {settings.heroEyebrow && (
-                <p className="eyebrow mb-4">{settings.heroEyebrow}</p>
-              )}
               <p className="font-display text-2xl font-medium text-muted sm:text-3xl">
                 {greeting}
               </p>
@@ -61,8 +58,19 @@ export default async function HomePage() {
                 {author.name}
               </h1>
               {(author.credentials || author.roleTitle) && (
-                <p className="mt-4 font-mono text-base uppercase tracking-[0.12em] text-indigo">
-                  {[author.credentials, author.roleTitle].filter(Boolean).join(" · ")}
+                <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-base uppercase tracking-[0.12em]">
+                  {author.credentials && (
+                    <span className="text-indigo">{author.credentials}</span>
+                  )}
+                  {author.credentials && author.roleTitle && (
+                    <span
+                      aria-hidden
+                      className="hidden h-4 w-px bg-outline sm:inline-block"
+                    />
+                  )}
+                  {author.roleTitle && (
+                    <span className="text-ink">{author.roleTitle}</span>
+                  )}
                 </p>
               )}
               <p className="mt-5 max-w-xl text-base leading-relaxed text-muted">
