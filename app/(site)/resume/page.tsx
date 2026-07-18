@@ -86,7 +86,7 @@ export default async function ResumePage() {
             {resume.experience.map((x) => (
               <li key={x._id} className="relative">
                 <span
-                  className="absolute -left-[27px] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-paper bg-indigo"
+                  className="absolute left-[-27px] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-paper bg-indigo"
                   aria-hidden
                 />
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4">
