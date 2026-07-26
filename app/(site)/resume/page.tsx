@@ -170,7 +170,7 @@ export default async function ResumePage() {
           <ul className="space-y-4">
             {resume.publications.map((pub) => (
               <li key={pub._id} className="flex gap-4">
-                <span className="mt-0.5 shrink-0 rounded bg-wash px-2 py-0.5 font-mono text-[0.65rem] uppercase tracking-wider text-indigo">
+                <span className="mt-0.5 shrink-0 rounded-full border border-line px-2.5 py-0.5 text-xs text-muted">
                   {PUB_LABELS[pub.type]}
                 </span>
                 <div>

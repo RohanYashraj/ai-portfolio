@@ -29,10 +29,10 @@ export function HighlightsGrid({ highlights }: { highlights: Highlight[] }) {
             aria-selected={active === cat}
             onClick={() => setActive(cat)}
             className={cx(
-              "rounded-full border px-3.5 py-1.5 font-mono text-xs uppercase tracking-wider transition-colors",
+              "rounded-full border px-3.5 py-1.5 text-sm transition-colors",
               active === cat
-                ? "border-indigo bg-indigo text-paper"
-                : "border-line text-slate hover:text-ink",
+                ? "border-indigo bg-indigo-solid text-white"
+                : "border-line text-muted hover:text-ink",
             )}
           >
             {cat === "all" ? "All" : categoryLabel(cat)}

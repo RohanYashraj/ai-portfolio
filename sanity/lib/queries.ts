@@ -41,7 +41,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   return fetchOr<SiteSettings>(
     `*[_type == "siteSettings"][0]{
       siteTitle, tagline, heroGreeting, heroStatement,
-      profileImage${IMAGE}, marqueeItems, primaryCtaLabel, secondaryCtaLabel,
+      profileImage${IMAGE}, primaryCtaLabel, secondaryCtaLabel,
       "resumePdfUrl": resumePdf.asset->url,
       navLinks[]{label, url},
       socialLinks[]{platform, url},

@@ -71,10 +71,10 @@ export default async function HighlightPage({
       </Link>
 
       <div className="mt-6 flex flex-wrap items-center gap-3">
-        <span className="inline-flex items-center rounded-full bg-wash px-2.5 py-1 font-mono text-[0.68rem] uppercase tracking-wider text-indigo">
+        <span className="inline-flex items-center rounded-full border border-line px-2.5 py-1 text-xs text-muted">
           {categoryLabel(highlight.category)}
         </span>
-        <time className="font-mono text-xs text-slate tnum" dateTime={highlight.date}>
+        <time className="tnum text-xs text-muted" dateTime={highlight.date}>
           {formatFullDate(highlight.date)}
         </time>
       </div>
@@ -120,7 +120,7 @@ export default async function HighlightPage({
 
       {highlight.links && highlight.links.length > 0 && (
         <div className="mt-10 border-t border-line pt-6">
-          <p className="label mb-3">Links</p>
+          <h2 className="label mb-3">Links</h2>
           <ul className="space-y-2">
             {highlight.links.map((link) => (
               <li key={link.url}>

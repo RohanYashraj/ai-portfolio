@@ -121,7 +121,7 @@ export default async function PostPage({
 
       {post.relatedPosts && post.relatedPosts.length > 0 && (
         <div className="mt-12 border-t border-line pt-8">
-          <p className="label mb-4">Related</p>
+          <h2 className="label mb-4">Related</h2>
           <ul className="space-y-4">
             {post.relatedPosts.map((rp) => (
               <li key={rp.slug}>

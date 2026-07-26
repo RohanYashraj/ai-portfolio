@@ -11,7 +11,9 @@ type Props = { value: number; suffix?: string; durationMs?: number };
 // the final value immediately.
 export function CountUp({ value, suffix = "", durationMs = 1200 }: Props) {
   const ref = useRef<HTMLSpanElement>(null);
-  const [display, setDisplay] = useState(0);
+  // Initialise to the real value so SSR/no-JS markup is numerically correct;
+  // the client animates 0 -> value when scrolled into view.
+  const [display, setDisplay] = useState(value);
 
   useGSAP(
     () => {

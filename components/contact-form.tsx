@@ -33,7 +33,7 @@ export function ContactForm() {
         className="rounded-lg border border-indigo/30 bg-wash p-6 text-ink"
       >
         <p className="font-display text-lg">Message sent</p>
-        <p className="mt-1 text-sm text-slate">{state.message}</p>
+        <p className="mt-1 text-sm text-ink">{state.message}</p>
       </div>
     );
   }

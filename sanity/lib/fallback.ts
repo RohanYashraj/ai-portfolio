@@ -60,14 +60,6 @@ export const fallbackSiteSettings: SiteSettings = {
   heroStatement:
     "I price risk, detect insurance fraud with machine learning, and teach the next generation of actuaries.",
   profileImage: img("/placeholders/profile.svg", "Portrait of Dr Rohan Yashraj Gupta"),
-  marqueeItems: [
-    "Rohan Yashraj Gupta",
-    "Actuary",
-    "Researcher",
-    "Educator",
-    "Portfolio",
-    "2026",
-  ],
   primaryCtaLabel: "Contact",
   secondaryCtaLabel: "Resume",
   resumePdfUrl: null,

@@ -63,7 +63,7 @@
   --indigo: #4f8cff;
   --indigo-ink: #7aa9ff;
   --indigo-soft: #16213a;
-  --indigo-solid: #2f6bff;
+  --indigo-solid: #2a5fe0;
   --line: #26262a;
   --outline: #26262a;
   --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.4);
@@ -137,11 +137,6 @@ a {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow-card);
-}
-
-.rule {
-  border: 0;
-  border-top: 1px solid var(--line);
 }
 
 /* ── Prose (Portable Text) ──────────────────────────────────────────────── */

@@ -24,7 +24,6 @@ export type SiteSettings = {
   heroGreeting?: string;
   heroStatement: string;
   profileImage?: ContentImage;
-  marqueeItems?: string[];
   primaryCtaLabel: string;
   secondaryCtaLabel: string;
   resumePdfUrl?: string | null;

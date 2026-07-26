@@ -56,24 +56,6 @@ export const siteSettings = defineType({
       ],
     }),
     defineField({
-      name: "marqueeItems",
-      title: "Marquee ticker words",
-      type: "array",
-      of: [{ type: "string" }],
-      description:
-        "Short words/phrases that scroll in the ticker bars (hero + footer).",
-      group: "hero",
-      options: { layout: "tags" },
-      initialValue: [
-        "Rohan Yashraj Gupta",
-        "Actuary",
-        "Researcher",
-        "Educator",
-        "Portfolio",
-        "2026",
-      ],
-    }),
-    defineField({
       name: "primaryCtaLabel",
       title: "Primary CTA label",
       type: "string",
