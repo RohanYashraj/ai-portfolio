@@ -72,7 +72,7 @@ export default async function PostPage({
 
       <Link
         href="/blog"
-        className="eyebrow inline-flex items-center gap-1.5 hover:text-indigo"
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-indigo"
       >
         ← All posts
       </Link>
@@ -121,7 +121,7 @@ export default async function PostPage({
 
       {post.relatedPosts && post.relatedPosts.length > 0 && (
         <div className="mt-12 border-t border-line pt-8">
-          <p className="eyebrow mb-4">Related</p>
+          <p className="label mb-4">Related</p>
           <ul className="space-y-4">
             {post.relatedPosts.map((rp) => (
               <li key={rp.slug}>

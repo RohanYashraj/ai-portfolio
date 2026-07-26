@@ -1,6 +1,18 @@
 @import "tailwindcss";
 
-/* ── Paper & Ultramarine tokens ─────────────────────────────────────────── */
+/* ── Design tokens ──────────────────────────────────────────────────────────
+   Swiss Minimal (Apple-clean): off-white + off-black, one cool accent, hairline
+   dividers, soft blurred shadows, generous whitespace, no flourishes.
+   NOTE: the accent variable is historically named `--indigo`; it is the single
+   locked cool-blue accent for the whole page.
+
+   Shape system lock:
+     • buttons          → full-pill (rounded-full)
+     • cards            → 16px radius (var(--radius))
+     • inputs / boxes   → 8px radius (rounded-lg)
+     • borders          → 1px hairline (var(--line))
+     • elevation        → soft blurred shadow (var(--shadow-card)), never hard offset
+────────────────────────────────────────────────────────────────────────────── */
 @theme {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -19,43 +31,42 @@
   --color-slate: var(--muted);
   --color-wash: var(--indigo-soft);
 
-  --font-display: var(--font-archivo), "Archivo", system-ui, sans-serif;
-  --font-sans: var(--font-archivo), "Archivo", system-ui, sans-serif;
-  --font-poster: var(--font-anton), "Archivo Narrow", sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-display: var(--font-geist), system-ui, sans-serif;
+  --font-sans: var(--font-geist), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  --radius: 1.25rem;
+  --radius: 1rem;
 }
 
 :root {
-  --bg: #f1ece0;
-  --surface: #fbf8f1;
-  --surface-2: #e8e2d3;
-  --ink: #141210;
-  --muted: #6d675b;
-  --indigo: #3b3af5;
-  --indigo-ink: #2a28d6;
-  --indigo-soft: #e6e5fc;
-  --indigo-solid: #302ee0;
-  --line: #d9d2c3;
-  --outline: #141210;
-  --shadow-card: 0 2px 0 var(--outline);
+  --bg: #fbfbfb;
+  --surface: #ffffff;
+  --surface-2: #f3f3f4;
+  --ink: #111113;
+  --muted: #6e6e73;
+  --indigo: #1e63e9;
+  --indigo-ink: #1550c8;
+  --indigo-soft: #eaf0fe;
+  --indigo-solid: #1e63e9;
+  --line: #e6e6e8;
+  --outline: #e6e6e8;
+  --shadow-card: 0 1px 2px rgb(17 17 19 / 0.06), 0 8px 24px rgb(17 17 19 / 0.06);
   color-scheme: light;
 }
 
 [data-theme="dark"] {
-  --bg: #0e0e11;
-  --surface: #17171b;
-  --surface-2: #1d1d22;
-  --ink: #efeade;
-  --muted: #9b968b;
-  --indigo: #6f6dff;
-  --indigo-ink: #8f8dff;
-  --indigo-soft: #1a1a30;
-  --indigo-solid: #4a48f0;
-  --line: #2a2924;
-  --outline: #4a483f;
-  --shadow-card: 0 2px 0 var(--outline);
+  --bg: #0b0b0c;
+  --surface: #151517;
+  --surface-2: #1c1c1f;
+  --ink: #f5f5f7;
+  --muted: #9a9aa0;
+  --indigo: #4f8cff;
+  --indigo-ink: #7aa9ff;
+  --indigo-soft: #16213a;
+  --indigo-solid: #2f6bff;
+  --line: #26262a;
+  --outline: #26262a;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.4);
   color-scheme: dark;
 }
 
@@ -67,16 +78,10 @@ html {
 
 body {
   background-color: var(--bg);
-  /* Fine paper grain — a texture, not a gradient. */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
   color: var(--ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-}
-[data-theme="dark"] body {
-  background-blend-mode: screen;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
 }
 
 ::selection {
@@ -100,47 +105,24 @@ a {
   font-feature-settings: "tnum" 1;
 }
 
-/* Small mono utility label. */
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--indigo);
+/* Small quiet label — form fields and minor subsection labels. Deliberately
+   NOT a decorative eyebrow: sentence case, muted, no wide tracking, no accent. */
+.label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--muted);
 }
 
-.font-poster {
-  font-family: var(--font-poster);
-}
-
-/* Condensed poster section heading (blue, uppercase) — e.g. "EXPERIENCE ✦". */
+/* Clean grotesk section heading — near-black, sentence case. */
 .section-heading {
-  font-family: var(--font-poster);
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: var(--indigo);
-  line-height: 0.95;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1.05;
 }
 
-.sparkle {
-  color: var(--indigo);
-  display: inline-block;
-}
-
-/* ── Portrait dashed rings (slow orbit) ─────────────────────────────────── */
-.ring-spin {
-  transform-origin: 50% 50%;
-  animation: spin 46s linear infinite;
-}
-.ring-spin-rev {
-  transform-origin: 50% 50%;
-  animation: spin 64s linear infinite reverse;
-}
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* ── Primary button — flat, solid, white text. ──────────────────────────── */
+/* ── Primary button — flat, solid accent, white text. ───────────────────── */
 .btn-primary {
   background-color: var(--indigo-solid);
   color: #ffffff;
@@ -152,37 +134,14 @@ a {
 /* ── Surfaces ───────────────────────────────────────────────────────────── */
 .card {
   background: var(--surface);
-  border: 1.5px solid var(--outline);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
 }
 
 .rule {
   border: 0;
   border-top: 1px solid var(--line);
-}
-
-/* ── Marquee ticker ─────────────────────────────────────────────────────── */
-/* Light: near-black bar with ultramarine text. Dark: ultramarine bar with
-   paper-coloured text — so it stays a bold strip in both themes. */
-.marquee {
-  overflow: hidden;
-  white-space: nowrap;
-  background-color: #141210;
-  color: var(--indigo);
-}
-[data-theme="dark"] .marquee {
-  background-color: var(--indigo-solid);
-  color: #f2ede2;
-}
-.marquee__track {
-  display: inline-flex;
-  align-items: center;
-  will-change: transform;
-  animation: marquee 75s linear infinite;
-}
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
 }
 
 /* ── Prose (Portable Text) ──────────────────────────────────────────────── */
@@ -195,7 +154,7 @@ a {
 .prose > * + * { margin-top: 1.15rem; }
 .prose h2 {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 600;
   font-size: 1.7rem;
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -203,7 +162,7 @@ a {
 }
 .prose h3 {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1.3rem;
   margin-top: 1.8rem;
 }
@@ -218,7 +177,7 @@ a {
 .prose ol { list-style: decimal; }
 .prose li + li { margin-top: 0.4rem; }
 .prose blockquote {
-  border-left: 3px solid var(--indigo);
+  border-left: 2px solid var(--indigo);
   padding-left: 1.1rem;
   color: var(--muted);
   font-size: 1.15rem;
@@ -234,7 +193,7 @@ a {
 .prose-image {
   width: 100%;
   height: auto;
-  border: 1.5px solid var(--outline);
+  border: 1px solid var(--line);
   border-radius: 12px;
 }
 .prose-figure figcaption {
@@ -247,7 +206,7 @@ a {
 /* ── Code blocks ────────────────────────────────────────────────────────── */
 .code-block {
   margin: 1.8rem 0;
-  border: 1.5px solid var(--outline);
+  border: 1px solid var(--line);
   border-radius: 12px;
   overflow: hidden;
   background: var(--surface-2);
@@ -258,7 +217,7 @@ a {
   letter-spacing: 0.04em;
   color: var(--muted);
   padding: 0.55rem 0.9rem;
-  border-bottom: 1.5px solid var(--outline);
+  border-bottom: 1px solid var(--line);
 }
 .code-block pre {
   margin: 0;
@@ -288,5 +247,4 @@ a {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  .marquee__track { animation: none !important; transform: none !important; }
 }

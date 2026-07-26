@@ -9,7 +9,7 @@ import { siteName, siteUrl } from "./site";
 
 /** One canonical sentence describing the subject — reused for meta + JSON-LD. */
 export const siteDescription =
-  "Dr Rohan Yashraj Gupta is an actuary, researcher, and educator — Actuarial Associate Principal at Accenture, Adjunct Professor at SSSIA, and holder of India's first PhD in Actuarial Science.";
+  "Dr Rohan Yashraj Gupta is an actuary, researcher, and educator. Actuarial Associate Principal at Accenture, Adjunct Professor at SSSIA, and holder of India's first PhD in Actuarial Science.";
 
 /** Topics the site demonstrably covers — surfaced to answer engines via Person. */
 export const knowsAbout = [
@@ -43,7 +43,7 @@ export const ogImage = {
   url: "/opengraph.png",
   width: 1254,
   height: 1254,
-  alt: `${siteName} — Actuary, Researcher, Educator`,
+  alt: `${siteName}, Actuary, Researcher, Educator`,
 };
 
 const HTTP = /^https?:\/\//;

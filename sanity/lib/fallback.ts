@@ -85,7 +85,7 @@ export const fallbackSiteSettings: SiteSettings = {
   ],
   footerNote: "Built with Next.js and Sanity.",
   seo: {
-    metaTitle: "Dr Rohan Yashraj Gupta — Actuary, Researcher, Educator",
+    metaTitle: "Dr Rohan Yashraj Gupta, Actuary, Researcher, Educator",
     metaDescription:
       "Actuarial Associate Principal at Accenture, Adjunct Professor at SSSIA, and holder of India's first PhD in Actuarial Science.",
   },
@@ -138,7 +138,7 @@ export const fallbackHighlights: Highlight[] = [
         "Agentic AI for Actuaries introduces how autonomous, tool-using AI systems can support pricing, reserving, and reporting workflows.",
       ),
       p(
-        "The book pairs practical patterns with worked examples aimed at practising actuaries and students. Full description to follow — [add chapter overview and endorsements].",
+        "The book pairs practical patterns with worked examples aimed at practising actuaries and students. Full description to follow. [Add chapter overview and endorsements.]",
       ),
     ],
   },
@@ -149,14 +149,14 @@ export const fallbackHighlights: Highlight[] = [
     category: "research",
     date: "2023-06-01",
     summary:
-      "Doctoral research on fraud detection in insurance — the first PhD awarded in Actuarial Science in India.",
+      "Doctoral research on fraud detection in insurance. The first PhD awarded in Actuarial Science in India.",
     featured: true,
     coverImage: img("/placeholders/cover-research.svg", "Research on insurance fraud detection"),
     body: [
       p(
         "The thesis developed machine-learning approaches to detect fraudulent insurance claims, combining actuarial judgement with modern classification methods.",
       ),
-      p("Awarding institution and defence date — [add details]."),
+      p("Awarding institution and defence date. [Add details.]"),
     ],
   },
   {
@@ -169,7 +169,7 @@ export const fallbackHighlights: Highlight[] = [
       "Teaching actuarial students at the Sri Sathya Sai Institute of Actuaries.",
     featured: true,
     coverImage: img("/placeholders/cover-teaching.svg", "Teaching at SSSIA"),
-    body: [p("Courses and modules taught — [add syllabus and cohorts].")],
+    body: [p("Courses and modules taught. [Add syllabus and cohorts.]")],
   },
   {
     _id: "hl-pricing-platform",
@@ -180,7 +180,7 @@ export const fallbackHighlights: Highlight[] = [
     summary:
       "Built and productionised pricing models on a modern actuarial pricing platform (hyperexponential).",
     coverImage: img("/placeholders/cover-client.svg", "Pricing platform engineering"),
-    body: [p("Scope, lines of business, and outcomes — [add project detail].")],
+    body: [p("Scope, lines of business, and outcomes. [Add project detail.]")],
   },
   {
     _id: "hl-crop",
@@ -190,11 +190,11 @@ export const fallbackHighlights: Highlight[] = [
     date: "2021-05-01",
     summary: "Pricing and portfolio work across crop insurance schemes.",
     coverImage: img("/placeholders/cover-client.svg", "Crop insurance pricing"),
-    body: [p("Programme details and results — [add project detail].")],
+    body: [p("Programme details and results. [Add project detail.]")],
   },
   {
     _id: "hl-conference",
-    title: "[Conference name] — invited talk",
+    title: "[Conference name], invited talk",
     slug: "conference-invited-talk",
     category: "conference",
     date: "2024-11-01",
@@ -221,7 +221,7 @@ export const fallbackPosts: Post[] = [
       ),
       h("A small example"),
       p(
-        "Consider a pricing check you run every month. An agent can pull the exposure data, run the model, compare against last month, and flag what moved — before you open the workbook.",
+        "Consider a pricing check you run every month. An agent can pull the exposure data, run the model, compare against last month, and flag what moved before you open the workbook.",
       ),
       code(
         `def price_check(portfolio):\n    exposure = load_exposure(portfolio)\n    result = run_pricing_model(exposure)\n    delta = compare_to_prior(result)\n    return flag_material_moves(delta, threshold=0.05)`,

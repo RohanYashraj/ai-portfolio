@@ -24,7 +24,7 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>${escapeXml(siteName)} — Blog</title>
+    <title>${escapeXml(siteName)} Blog</title>
     <link>${siteUrl}/blog</link>
     <description>Notes on actuarial science, AI, and teaching.</description>
     <language>en</language>

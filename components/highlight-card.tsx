@@ -9,16 +9,9 @@ export function HighlightCard({ highlight }: { highlight: Highlight }) {
       href={`/highlights/${highlight.slug}`}
       eventName="highlight_opened"
       eventProperties={{ highlight_category: highlight.category }}
-      className="card group flex h-full flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:border-indigo/40"
+      className="card group flex h-full flex-col overflow-hidden transition-colors duration-200 hover:border-indigo/40"
     >
-      <div className="relative aspect-[3/2] overflow-hidden border-b-[1.5px] border-outline bg-indigo-soft">
-        {/* Graceful placeholder shown until a cover image is uploaded. */}
-        <div
-          aria-hidden
-          className="absolute inset-0 grid place-items-center font-display text-4xl font-bold text-indigo/25"
-        >
-          {categoryLabel(highlight.category)}
-        </div>
+      <div className="relative aspect-[3/2] overflow-hidden border-b border-line bg-surface-2">
         <SmartImage
           image={highlight.coverImage}
           fill
@@ -27,18 +20,18 @@ export function HighlightCard({ highlight }: { highlight: Highlight }) {
         />
       </div>
       <div className="flex flex-1 flex-col p-5">
-        <div className="mb-3 flex items-center justify-between">
-          <span className="inline-flex items-center rounded-full bg-wash px-2.5 py-1 font-mono text-[0.68rem] uppercase tracking-wider text-indigo">
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <span className="text-sm font-medium text-muted">
             {categoryLabel(highlight.category)}
           </span>
-          <time className="font-mono text-xs text-slate tnum" dateTime={highlight.date}>
+          <time className="tnum text-xs text-muted" dateTime={highlight.date}>
             {formatMonthYear(highlight.date)}
           </time>
         </div>
-        <h3 className="font-display text-lg font-bold leading-snug text-ink">
+        <h3 className="font-display text-lg font-semibold leading-snug text-ink">
           {highlight.title}
         </h3>
-        <p className="mt-2 text-sm leading-relaxed text-slate">
+        <p className="mt-2 text-sm leading-relaxed text-muted">
           {highlight.summary}
         </p>
       </div>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { draftMode } from "next/headers";
-import { Anton, Archivo, IBM_Plex_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { VisualEditing } from "next-sanity/visual-editing";
 import { SanityLive } from "@/sanity/lib/live";
 import { isSanityConfigured } from "@/sanity/env";
@@ -10,30 +10,23 @@ import { ogImage, siteDescription, siteKeywords } from "@/lib/seo";
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css";
 
-// Anton — condensed heavy poster type (marquee, big display, section labels).
-const anton = Anton({
+// Geist — clean neutral grotesk for display and body (variable font).
+const geist = Geist({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-anton",
+  variable: "--font-geist",
   display: "swap",
 });
-// Archivo — grotesque for headings (up to 900) and body.
-const archivo = Archivo({
+// Geist Mono — sparse mono meta labels and code (variable font).
+const geistMono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-archivo",
-  display: "swap",
-});
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-plex-mono",
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteName} — Actuary, Researcher, Educator`,
+    default: `${siteName}, Actuary, Researcher, Educator`,
     template: `%s · ${siteName}`,
   },
   description: siteDescription,
@@ -59,7 +52,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName,
-    title: `${siteName} — Actuary, Researcher, Educator`,
+    title: `${siteName}, Actuary, Researcher, Educator`,
     description: siteDescription,
     url: siteUrl,
     locale: "en_US",
@@ -67,7 +60,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteName} — Actuary, Researcher, Educator`,
+    title: `${siteName}, Actuary, Researcher, Educator`,
     description: siteDescription,
     images: [ogImage.url],
   },
@@ -81,7 +74,7 @@ export default async function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${anton.variable} ${archivo.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${geist.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Analytics />

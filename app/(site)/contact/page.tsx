@@ -20,7 +20,6 @@ export default async function ContactPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Get in touch"
         title="Contact"
         intro="For actuarial work, teaching, speaking, or publishing enquiries."
       />

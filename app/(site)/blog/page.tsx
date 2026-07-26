@@ -23,7 +23,6 @@ export default async function BlogPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Writing"
         title="Blog"
         intro="Notes on actuarial science, machine learning, and teaching."
       />

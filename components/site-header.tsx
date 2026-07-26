@@ -20,19 +20,18 @@ export function SiteHeader({
   const isActive = (url: string) =>
     url === "/" ? pathname === "/" : pathname.startsWith(url);
 
-  // Wordmark: first word of the site title + an accent dot.
+  // Wordmark: first word of the site title.
   const mark = siteTitle.split(" ")[0];
 
   return (
-    <header className="sticky top-0 z-40 border-b-[1.5px] border-outline bg-bg/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur-xl">
       <div className="mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between px-5 sm:px-8">
         <Link
           href="/"
           onClick={() => setOpen(false)}
-          className="font-display text-xl font-bold tracking-tight text-ink"
+          className="font-display text-xl font-semibold tracking-tight text-ink"
         >
           {mark}
-          <span className="text-indigo">.</span>
         </Link>
 
         <div className="flex items-center gap-2">
@@ -45,9 +44,9 @@ export function SiteHeader({
                 key={link.url}
                 href={link.url}
                 className={cx(
-                  "rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                  "px-3 py-2 text-sm font-medium transition-colors",
                   isActive(link.url)
-                    ? "bg-indigo-soft text-indigo"
+                    ? "text-ink"
                     : "text-muted hover:text-ink",
                 )}
               >
@@ -57,13 +56,6 @@ export function SiteHeader({
           </nav>
 
           <ThemeToggle />
-
-          <Link
-            href="/contact"
-            className="btn-primary hidden rounded-full px-5 py-2.5 text-sm font-semibold transition-transform hover:-translate-y-0.5 md:inline-flex"
-          >
-            Let&apos;s talk
-          </Link>
 
           <button
             type="button"
@@ -95,7 +87,7 @@ export function SiteHeader({
               onClick={() => setOpen(false)}
               className={cx(
                 "block rounded-lg px-3 py-3 text-sm font-medium",
-                isActive(link.url) ? "text-indigo" : "text-ink",
+                isActive(link.url) ? "text-ink" : "text-muted",
               )}
             >
               {link.label}

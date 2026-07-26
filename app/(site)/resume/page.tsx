@@ -33,11 +33,8 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="border-t-[1.5px] border-outline py-12 first:border-t-0">
-      <h2 className="section-heading mb-8 text-4xl sm:text-5xl">
-        {title}{" "}
-        <span className="sparkle align-middle text-xl sm:text-2xl">✦</span>
-      </h2>
+    <section id={id} className="border-t border-line py-12 first:border-t-0">
+      <h2 className="section-heading mb-8 text-3xl sm:text-4xl">{title}</h2>
       <div>{children}</div>
     </section>
   );
@@ -52,9 +49,8 @@ export default async function ResumePage() {
   return (
     <>
       <PageHeader
-        eyebrow="Curriculum vitae"
         title="Resume"
-        intro="Education, experience, credentials, and publications — the full record."
+        intro="Education, experience, credentials, and publications. The full record."
       />
 
       <div className="mx-auto max-w-4xl px-5 sm:px-8">
@@ -62,7 +58,7 @@ export default async function ResumePage() {
           <div className="flex justify-end py-6">
             <a
               href={settings.resumePdfUrl}
-              className="inline-flex items-center gap-2 rounded-full border-[1.5px] border-outline px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-indigo hover:text-indigo"
+              className="inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-indigo hover:text-indigo"
               download
             >
               Download PDF ↓
@@ -77,7 +73,7 @@ export default async function ResumePage() {
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4">
                   <h3 className="font-display text-lg text-ink">{e.qualification}</h3>
                   <span className="font-mono text-xs text-slate tnum">
-                    {[e.start, e.end].filter(Boolean).join(" – ")}
+                    {[e.start, e.end].filter(Boolean).join(" - ")}
                   </span>
                 </div>
                 <p className="text-sm text-slate">
@@ -100,7 +96,7 @@ export default async function ResumePage() {
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4">
                   <h3 className="font-display text-lg text-ink">{x.role}</h3>
                   <span className="font-mono text-xs text-slate tnum">
-                    {[x.start, x.end].filter(Boolean).join(" – ")}
+                    {[x.start, x.end].filter(Boolean).join(" - ")}
                   </span>
                 </div>
                 <p className="text-sm text-slate">
@@ -145,7 +141,7 @@ export default async function ResumePage() {
                   {g.skills.map((s) => (
                     <li
                       key={s}
-                      className="rounded-full border-[1.5px] border-outline px-3.5 py-1 text-sm text-ink"
+                      className="rounded-full border border-line px-3.5 py-1 text-sm text-ink"
                     >
                       {s}
                     </li>

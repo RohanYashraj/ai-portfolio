@@ -22,9 +22,8 @@ export default async function HighlightsPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Selected work"
         title="Highlights"
-        intro="Research, teaching, publications, and client engagements — filter by category."
+        intro="Research, teaching, publications, and client engagements. Filter by category below."
       />
       <section className="mx-auto max-w-6xl px-5 py-14 sm:px-8">
         <HighlightsGrid highlights={highlights} />

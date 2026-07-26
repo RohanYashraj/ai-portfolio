@@ -65,7 +65,7 @@ export default async function HighlightPage({
 
       <Link
         href="/highlights"
-        className="eyebrow inline-flex items-center gap-1.5 hover:text-indigo"
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-indigo"
       >
         ← All highlights
       </Link>
@@ -120,7 +120,7 @@ export default async function HighlightPage({
 
       {highlight.links && highlight.links.length > 0 && (
         <div className="mt-10 border-t border-line pt-6">
-          <p className="eyebrow mb-3">Links</p>
+          <p className="label mb-3">Links</p>
           <ul className="space-y-2">
             {highlight.links.map((link) => (
               <li key={link.url}>

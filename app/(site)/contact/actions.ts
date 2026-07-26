@@ -98,7 +98,7 @@ export async function submitContact(
   const parsed = schema.safeParse(raw);
   if (!parsed.success) {
     // Honeypot tripped — pretend success, drop silently.
-    if (raw.company) return { status: "success", message: "Thanks — your message is on its way." };
+    if (raw.company) return { status: "success", message: "Thanks, your message is on its way." };
     const fieldErrors: ContactState["fieldErrors"] = {};
     for (const issue of parsed.error.issues) {
       const key = issue.path[0] as keyof NonNullable<ContactState["fieldErrors"]>;
@@ -162,7 +162,7 @@ export async function submitContact(
     await captureContactEvent("contact_form_submitted", "delivered");
     return {
       status: "success",
-      message: "Thanks — your message is on its way. I'll reply soon.",
+      message: "Thanks, your message is on its way. I'll reply soon.",
     };
   } catch (err) {
     console.error("Resend error:", err);
